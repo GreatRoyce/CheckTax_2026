@@ -1,0 +1,59 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+h1 {
+  @apply text-5xl font-bold;
+}
+body {
+  background-color: #f8f9fb;
+}
+h2 {
+  @apply text-4xl font-bold;
+}
+h3 {
+  @apply text-3xl font-semibold;
+}
+h4 {
+  @apply text-sm text-black/70 font-medium;
+}
+h5 {
+  @apply text-xl font-medium;
+}
+h6 {
+  @apply text-xs font-medium  text-black/70;
+}
+p {
+  @apply text-xs font-normal;
+}
+.face {
+  animation: faces 10s 10ms linear infinite;
+  background-size: contain;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  background-position: center;
+}
+
+@keyframes faces {
+  0% {
+    transform: translateY(0);
+    background-image: url("/src/assets/worryface.png");
+  }
+  100% {
+    transform: translateY(0);
+    background-image: url("/src/assets/worryface.png");
+  }
+  50% {
+    transform: translateY(-20px);
+    background-image: url("/src/assets/straightface.png");
+  }
+}
+
+.faced {
+  background-image: url("/src/assets/smilingface.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+}
+
+
