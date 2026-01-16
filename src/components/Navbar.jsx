@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 function Navbar() {
   return (
     <div className="relative">
-      <nav className="border flex px-10 justify-between items-center w-screen h-14 fixed z-50 shadow-md backdrop-blur-2xl">
+      <nav className="border flex px-10 mb-10 justify-between items-center w-screen h-14 fixed z-50 shadow-md backdrop-blur-2xl">
         {/* Logo links to home */}
         <div title="Nigeria Tax Reform Portal" className="cursor-pointer">
           <Link to="/">
@@ -18,10 +18,10 @@ function Navbar() {
         <ul className="flex gap-10 justify-between items-center text-md font-bold text-btnprimary">
           <li>
             <Link
-              to="/dashboard"
+              to="/home"
               className="cursor-pointer hover:underline active:scale-105 transition-transform duration-300 ease-in-out"
             >
-              Dashboard
+              Home
             </Link>
           </li>
           <li>

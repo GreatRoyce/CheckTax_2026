@@ -12,6 +12,7 @@ function Homepage() {
         <HeroSection />
          <Dashboard /> 
          <Footer />
+         
       </div>
     </div>
   );

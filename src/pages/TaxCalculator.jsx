@@ -1,9 +1,11 @@
 import React from "react";
 import Footer from "../sections/Footer";
+import CompBtn from "../components/CompBtn";
 import { CgProfile } from "react-icons/cg";
 import { FaNewspaper } from "react-icons/fa6";
 import { BsCart4 } from "react-icons/bs";
 import { VscGraph } from "react-icons/vsc";
+import { FaFileDownload } from "react-icons/fa";
 
 const box = [
   {
@@ -66,45 +68,56 @@ function TaxCalculator() {
               ))}
             </section>
 
-            <section className="border border-gray-900 h-3/4 rounded-lg pt-8 px-4">
-              <div className=" text-left">
-                <div className="flex items-center space-x-2 pb-8">
-                  <i class=" text-black ml-[-6px] text-2xl fa-solid fa-lightbulb"></i>
-                  <h5>Tips</h5>
-                </div>
+            <div className=" grid grid-rows-[4fr_1fr]">
+              <section className="border border-gray-900  h-full rounded-lg pt-8 px-4">
+                <div className=" text-left">
+                  <div className="flex items-center space-x-2 pb-8">
+                    <i class=" text-black ml-[-6px] text-2xl fa-solid fa-lightbulb"></i>
+                    <h5>Tips</h5>
+                  </div>
 
-                <div className=" flex space-x-2">
-                  <i class=" text-yellow-400 fa-solid fa-lightbulb"></i>
+                  <div className=" flex space-x-2">
+                    <i class=" text-yellow-400 fa-solid fa-lightbulb"></i>
 
-                  <h6 className=""> Remember to include allowances</h6>
-                </div>
-                <hr className="border-t-2 border-gray-300 w-5/6 mx-auto my-2 py-1" />
+                    <h6 className=""> Remember to include allowances</h6>
+                  </div>
+                  <hr className="border-t-2 border-gray-300 w-5/6 mx-auto my-2 py-1" />
 
-                <div className=" flex space-x-2">
-                  <i class=" text-yellow-400 fa-solid fa-lightbulb"></i>
-                  <h6 className="">
-                    {" "}
-                    Pension contributions reduce taxable income{" "}
-                  </h6>
-                </div>
-                <hr className="border-t-2 border-gray-300  w-5/6 mx-auto my-2 py-1" />
+                  <div className=" flex space-x-2">
+                    <i class=" text-yellow-400 fa-solid fa-lightbulb"></i>
+                    <h6 className="">
+                      {" "}
+                      Pension contributions reduce taxable income{" "}
+                    </h6>
+                  </div>
+                  <hr className="border-t-2 border-gray-300  w-5/6 mx-auto my-2 py-1" />
 
-                <div className=" flex space-x-2">
-                  <i class=" text-yellow-400 fa-solid fa-lightbulb"></i>
-                  <h6 className=""> Keep record of all deductions</h6>
-                </div>
-                <hr className="border-t-2 border-gray-300  w-5/6 mx-auto my-2 py-1" />
+                  <div className=" flex space-x-2">
+                    <i class=" text-yellow-400 fa-solid fa-lightbulb"></i>
+                    <h6 className=""> Keep record of all deductions</h6>
+                  </div>
+                  <hr className="border-t-2 border-gray-300  w-5/6 mx-auto my-2 py-1" />
 
-                <div className=" flex space-x-2">
-                  <i class=" text-yellow-400 fa-solid fa-lightbulb"></i>
-                  <h6 className="">
-                    {" "}
-                    File before March 31st to avoid penalties
-                  </h6>
+                  <div className=" flex space-x-2">
+                    <i class=" text-yellow-400 fa-solid fa-lightbulb"></i>
+                    <h6 className="">
+                      {" "}
+                      File before March 31st to avoid penalties
+                    </h6>
+                  </div>
+                  <hr className="border-t-2 border-gray-300  w-5/6 mx-auto my-2 py-1" />
                 </div>
-                <hr className="border-t-2 border-gray-300  w-5/6 mx-auto my-2 py-1" />
+              </section>
+              <div className="flex justify-center items-center">
+                <CompBtn
+                  className="m-5 items-center px-4 py-2 font-semibold"
+                  variant="primary"
+                >
+          
+                  <span>Download Tax Estimation</span>
+                </CompBtn>
               </div>
-            </section>
+            </div>
           </div>
         </main>
       </div>

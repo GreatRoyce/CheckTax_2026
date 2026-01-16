@@ -1,15 +1,87 @@
 import React, { useState } from "react";
-
 import { FaArrowRight } from "react-icons/fa";
 import { FaPlayCircle } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { HeroData } from "../Data/HeroData";
+import BarChart from "../components/BarChart";
+import { MdHeight } from "react-icons/md";
 
 function HeroSection() {
+  const [heroData, setHeroData] = useState({
+    labels: HeroData.map((data) => data.year),
+    datasets: [
+      {
+        label: "Tax Revenue Projection (2025 vs 2026)",
+        data: HeroData.map((data) => data.value),
+        borderWidth: 1,
+
+        backgroundColor: (context) => {
+          const chart = context.chart;
+          const { ctx, chartArea } = chart;
+
+          if (!chartArea) return null; // prevents initial render bug
+
+          const gradient = ctx.createLinearGradient(
+            0,
+            chartArea.bottom,
+            0,
+            chartArea.top
+          );
+
+          gradient.addColorStop(0, "#006944"); // bottom
+          gradient.addColorStop(1, "#00b37a"); // top
+
+          return gradient;
+        },
+
+        barThickness: 50,
+        borderRadius: 1,
+        maxBarThickness: 100,
+      },
+    ],
+  });
+
+  const chartOptions = {
+    responsive: true,
+    maintainAspectRatio: false,
+
+    layout: {
+      padding: {
+        top: 10,
+        bottom: 10,
+      },
+    },
+
+    plugins: {
+      legend: {
+        position: "top",
+        labels: {
+          padding: 10,
+        },
+      },
+    },
+
+    scales: {
+      y: {
+        beginAtZero: true,
+        suggestedMax: 50000,
+
+        ticks: {
+          padding: 6,
+        },
+      },
+      x: {
+        barPercentage: 0.6,
+        categoryPercentage: 0.7,
+      },
+    },
+  };
+
   const [activebtn, setActivebtn] = useState("check");
 
   return (
     <div>
-      <div className=" w-screen h-[84vh] pt-10 bg-primary/5">
+      <div className=" w-screen h-[84vh] pt-20 bg-primary/5">
         <div className=" w-4/5 flex mx-auto h-[90%]">
           <div className=" w-3/5 h-full">
             <div className="h-5/6 mt-11 grid grid-rows-[3fr_2fr]">
@@ -59,7 +131,7 @@ function HeroSection() {
                   </button>
                 </div>
 
-                <div className=" grid grid-cols-3 gap-4 mx-auto border justify-center items-center  py-2">
+                <div className=" grid grid-cols-3 gap-4 mx-auto justify-center items-center  py-2">
                   <div className=" flex flex-col text-center">
                     <h1 className="text-btnprimary ">20%</h1>
                     <h6>Target Compliance</h6>
@@ -78,7 +150,11 @@ function HeroSection() {
           </div>
 
           {/* GRAPHIC AREA */}
-          <div className="w-2/5 h-full bg-secondary shadow-lg z-1"></div>
+          <div className="w-2/5 h-full bg-secondary shadow-lg z-1">
+            <div className="w-full h-full p-6">
+              <BarChart chartData={heroData} chartOptions={chartOptions} />
+            </div>
+          </div>
         </div>
       </div>
     </div>
