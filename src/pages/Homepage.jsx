@@ -4,6 +4,7 @@ import HeroSection from "../sections/HeroSection";
 import Dashboard from "../sections/Dashboard";
 import Footer from "../sections/Footer";
 
+
 function Homepage() {
   return (
     <div>
@@ -12,6 +13,7 @@ function Homepage() {
         <HeroSection />
          <Dashboard /> 
          <Footer />
+         
          
       </div>
     </div>
