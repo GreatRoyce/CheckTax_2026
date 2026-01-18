@@ -32,20 +32,23 @@ p {
   background-repeat: no-repeat;
   cursor: pointer;
   background-position: center;
+  background-image: url("/src/assets/worryface.png");
+  scale: 2.2;
+  transition: all 0.2s ease-in-out;
 }
 
 @keyframes faces {
   0% {
     transform: translateY(0);
-    background-image: url("/src/assets/worryface.png");
+
   }
   100% {
     transform: translateY(0);
-    background-image: url("/src/assets/worryface.png");
+   
   }
   50% {
-    transform: translateY(-20px);
-    background-image: url("/src/assets/straightface.png");
+    transform: translateY(-4px);
+  
   }
 }
 
@@ -56,4 +59,21 @@ p {
   background-position: center;
 }
 
+.role{
+  display: none;
+  position: absolute;
+  top: 10;
+  left: 10;
+  background-color: #fff;
+  font-size: 10px;
+  padding: 4px;
+ }
 
+.face:hover{
+  
+  .role{
+    display:block
+        
+
+  }
+}

@@ -90,7 +90,7 @@ function Footer() {
           {/* Ai 
             Chatbot */}
           <div className=" ml-[80%] justify-center items-center ">
-            <button
+            <div
               onClick={() => setFace(!face)}
               className={
                 face
@@ -99,7 +99,8 @@ function Footer() {
               }
             >
               {/* Chat bot */}
-            </button>
+              {/* <div className="role border-2 border-primary rounded-xl p-2 text-center ">AI Chatbot</div> */}
+            </div>
           </div>
           <div className="w-full h-10 mx-auto border-t-2 border-gray-400 pt-8 ">
             <div className="flex flex-col justify-center items-center text-center">
