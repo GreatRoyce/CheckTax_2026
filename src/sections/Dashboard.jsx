@@ -70,7 +70,7 @@ const TaxGraph = ({ income, oldTax, newTax }) => {
   }, []);
 
   const maxTax = Math.max(
-    ...dataPoints.map((d) => Math.max(d.oldTax, d.newTax))
+    ...dataPoints.map((d) => Math.max(d.oldTax, d.newTax)),
   );
   const maxIncome = 12000000;
 
@@ -230,7 +230,7 @@ function Dashboard() {
   const difference = newTax - oldTax;
 
   return (
-    <div className="w-4/5 p-4 text-center h-screen mx-auto">
+    <div className="w-4/5 p-4 mb-32 text-center h-screen mx-auto">
       <header className="py-8">
         <h2>Dashboard</h2>
         <h4>Your Tax Overview</h4>
@@ -292,8 +292,8 @@ function Dashboard() {
                   {difference < 0
                     ? "✓ You'll pay less tax in 2026!"
                     : difference > 0
-                    ? "⚠ You'll pay more tax in 2026"
-                    : "Tax remains the same"}
+                      ? "⚠ You'll pay more tax in 2026"
+                      : "Tax remains the same"}
                 </p>
               </div>
             </div>
@@ -315,8 +315,8 @@ function Stat({ label, value, highlight }) {
           highlight === "green"
             ? "text-green-600"
             : highlight === "red"
-            ? "text-red-600"
-            : "text-black/80"
+              ? "text-red-600"
+              : "text-black/80"
         }`}
       >
         ₦{value.toLocaleString()}

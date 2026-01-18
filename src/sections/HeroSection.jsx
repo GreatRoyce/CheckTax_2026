@@ -71,7 +71,7 @@ function HeroSection() {
   const [activebtn, setActivebtn] = useState("check");
 
   return (
-    <div className="w-screen h-[84vh] pt-20 bg-primary/5">
+    <div className="w-full h-[84vh] pt-20 bg-primary/5 ">
       <div className="w-4/5 h-full mx-auto flex">
         {/* LEFT SECTION */}
         <div className="w-3/5 h-full">

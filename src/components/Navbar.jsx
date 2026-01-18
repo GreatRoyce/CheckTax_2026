@@ -26,10 +26,10 @@ function Navbar() {
           </li>
           <li>
             <Link
-              to="/policy-explorer"
+              to="/tax-guide"
               className="cursor-pointer hover:underline active:scale-105 transition-transform duration-300 ease-in-out"
             >
-              Policy Explorer
+              Tax Reform Guide
             </Link>
           </li>
           <li>

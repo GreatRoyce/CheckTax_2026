@@ -5,14 +5,15 @@ import { FaLinkedin } from "react-icons/fa6";
 import { FaSquareXTwitter } from "react-icons/fa6";
 import { FaFacebookSquare } from "react-icons/fa";
 import { FaSquareInstagram } from "react-icons/fa6";
+import Chatbot from "../components/Chatbot";
 
 function Footer() {
   const [face, setFace] = useState(false);
 
   return (
     <div>
-      <div className="mt-28 h-[80vh] w-screen flex mb-10">
-        <div className="grid grid-rows-[3fr_1fr_1fr] w-4/5 px-20 mx-auto border bg-divider/10 shadow-inner shadow-gray-400 rounded-t-lg pt-4 ">
+      <div className="relative mt-16 mx-auto justify-center items-center h-[80vh] flex mb-10 ">
+        <div className="grid grid-rows-[3fr_1fr_2fr] w-4/5 px-20 mx-auto border bg-divider/10 shadow-inner shadow-gray-400 rounded-t-xl pt-4 ">
           {/* Log and titles */}
 
           <div className="flex justify-between items-center">
@@ -29,11 +30,11 @@ function Footer() {
               </h4>
 
               {/* socials */}
-              <div className="flex pt-4 w-2/4 justify-cente text-left space-x-4 items-center  ">
-                <FaLinkedin className="h-6 w-6 cursor-pointer hover:scale-110 active:scale-125 transition-all duration-300 ease-in-out" />
-                <FaSquareXTwitter className="h-6 w-6 cursor-pointer hover:scale-110 active:scale-125 transition-all duration-300 ease-in-out" />
-                <FaFacebookSquare className="h-6 w-6 cursor-pointer hover:scale-110 active:scale-125 transition-all duration-300 ease-in-out" />
-                <FaSquareInstagram className="h-6 w-6 cursor-pointer hover:scale-110 active:scale-125 transition-all duration-300 ease-in-out" />
+              <div className="flex pt-4 w-2/4 justify-center text-left space-x-4 items-center  ">
+                <FaLinkedin className="h-6 w-6 cursor-pointer hover:scale-150 active:scale-125 transition-all duration-300 ease-in-out shadow-lg" />
+                <FaSquareXTwitter className="h-6 w-6 cursor-pointer hover:scale-150 active:scale-125 transition-all duration-300 ease-in-out shadow-lg" />
+                <FaFacebookSquare className="h-6 w-6 cursor-pointer hover:scale-150 active:scale-125 transition-all duration-300 ease-in-out shadow-lg" />
+                <FaSquareInstagram className="h-6 w-6 cursor-pointer hover:scale-150 active:scale-125 transition-all duration-300 ease-in-out shadow-lg" />
               </div>
             </div>
             {/* right: Titles */}
@@ -94,13 +95,14 @@ function Footer() {
               onClick={() => setFace(!face)}
               className={
                 face
-                  ? "faced h-28 w-28 text-center justify-center items-center"
-                  : "face h-28 w-28 text-center justify-center items-center"
+                  ? ""
+                  : "face h-16 w-28 text-center justify-center items-center"
               }
             >
               {/* Chat bot */}
               {/* <div className="role border-2 border-primary rounded-xl p-2 text-center ">AI Chatbot</div> */}
             </div>
+            {face && <Chatbot onClose={() => setFace(false)} />}
           </div>
           <div className="w-full h-10 mx-auto border-t-2 border-gray-400 pt-8 ">
             <div className="flex flex-col justify-center items-center text-center">

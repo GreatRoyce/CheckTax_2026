@@ -9,6 +9,7 @@ import Homepage from "./pages/Homepage";
 import TaxCalculator from "./pages/TaxCalculator";
 import Navbar from "./components/Navbar";
 import NotFound from "./pages/NotFound";
+import TaxGuide from "./pages/TaxGuide";
 
 // Layout wrapper
 function Layout({ children }) {
@@ -33,6 +34,7 @@ function App() {
           <Route path="/" element={<Homepage />} />
           <Route path="/home" element={<Homepage />} />
           <Route path="/tax-calculator" element={<TaxCalculator />} />
+          <Route path="/tax-guide" element={<TaxGuide />} />
 
           {/* Catch-all route */}
           <Route path="*" element={<NotFound />} />
