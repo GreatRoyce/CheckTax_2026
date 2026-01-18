@@ -13,12 +13,12 @@ function Footer() {
   return (
     <div>
       <div className="relative mt-16 mx-auto justify-center items-center h-[80vh] flex mb-10 ">
-        <div className="grid grid-rows-[3fr_1fr_2fr] w-4/5 px-20 mx-auto border bg-divider/10 shadow-inner shadow-gray-400 rounded-t-xl pt-4 ">
+        <div className="grid grid-rows-[2fr_1fr] w-4/5 px-20 mx-auto border bg-divider/10 shadow-inner shadow-gray-400 rounded-t-xl pt-4 ">
           {/* Log and titles */}
 
-          <div className="flex justify-between items-center">
+          <div className="flex py-10 justify-between items-center">
             {/* left: Logo */}
-            <div className=" w-1/3">
+            <div className="  w-1/3 space-y-4">
               <div
                 title="Nigeria Tax Reform Portal"
                 className=" bg-contain h-32 w-32 bg-center bg-no-repeat justify-center items-center "
@@ -39,7 +39,7 @@ function Footer() {
             </div>
             {/* right: Titles */}
 
-            <div className=" pr-12 space-x-8 flex ">
+            <div className=" pr-12 space-x-8  flex ">
               {/* 1st Column */}
               <div className="p-4 ">
                 <h5>Resources</h5>
@@ -83,27 +83,27 @@ function Footer() {
                   <li className="opacity-70 text-sm transition-all hover:underline duration-300 ease-in-out active:opacity-100 cursor-pointer">
                     Report Issue
                   </li>
+                  <li>
+                    <div className=" ml-12 border-2 mt-10 justify-center items-center ">
+                      <div
+                        onClick={() => setFace(!face)}
+                        className={
+                          face
+                            ? ""
+                            : "face h-8 w-28 text-center justify-center items-center"
+                        }
+                      >
+                        {/* Chat bot */}
+                        {/* <div className="role border-2 border-primary rounded-xl p-2 text-center ">AI Chatbot</div> */}
+                      </div>
+                      {face && <Chatbot onClose={() => setFace(false)} />}
+                    </div>
+                  </li>
                 </ul>
               </div>
             </div>
           </div>
 
-          {/* Ai 
-            Chatbot */}
-          <div className=" ml-[80%] justify-center items-center ">
-            <div
-              onClick={() => setFace(!face)}
-              className={
-                face
-                  ? ""
-                  : "face h-16 w-28 text-center justify-center items-center"
-              }
-            >
-              {/* Chat bot */}
-              {/* <div className="role border-2 border-primary rounded-xl p-2 text-center ">AI Chatbot</div> */}
-            </div>
-            {face && <Chatbot onClose={() => setFace(false)} />}
-          </div>
           <div className="w-full h-10 mx-auto border-t-2 border-gray-400 pt-8 ">
             <div className="flex flex-col justify-center items-center text-center">
               <div className="text-center ">
