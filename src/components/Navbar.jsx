@@ -8,7 +8,12 @@ function Navbar() {
     <div className="relative">
       <nav className="border flex px-10 mb-10 justify-between items-center w-screen h-14 fixed z-50 shadow-md backdrop-blur-2xl">
         {/* Logo links to home */}
-        <div title="Nigeria Tax Reform Portal" className="cursor-pointer">
+
+        <div
+          id="#home"
+          title="Nigeria Tax Reform Portal"
+          className="cursor-pointer"
+        >
           <Link to="/">
             <img src={logo} alt="checktax logo" className="h-12 w-24" />
           </Link>
@@ -43,10 +48,10 @@ function Navbar() {
         </ul>
 
         {/* Buttons */}
-        <div className="flex gap-5 justify-between items-center">
+        {/* <div className=" flex gap-5 justify-between items-center">
           <CompBtn variant="secondary">My Account</CompBtn>
           <CompBtn variant="primary">File Return</CompBtn>
-        </div>
+        </div> */}
       </nav>
     </div>
   );
