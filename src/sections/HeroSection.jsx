@@ -71,77 +71,85 @@ function HeroSection() {
   const [activebtn, setActivebtn] = useState("check");
 
   return (
-    <div className="w-full h-[84vh] pt-20 bg-primary/5 ">
-      <div className="w-4/5 h-full mx-auto flex">
+    <div className="w-full min-h-screen md:h-[84vh] pt-12 md:pt-20 bg-primary/5">
+      <div className="w-full md:w-4/5 h-full mx-auto px-4 md:px-0 flex flex-col lg:flex-row">
         {/* LEFT SECTION */}
-        <div className="w-3/5 h-full">
-          <div className="h-full mt-11 grid grid-rows-[3fr_2fr]">
-            <div className="pl-10">
-              <h1 className="text-btnprimary mb-2 w-4/5">
+        <div className="w-full lg:w-3/5 h-full order-1">
+          <div className="h-full mt-6 md:mt-11 grid grid-rows-[auto_auto] lg:grid-rows-[3fr_2fr]">
+            <div className="pl-0 md:pl-10 text-center md:text-left">
+              <h1 className="text-btnprimary mb-2 w-full md:w-4/5 text-2xl sm:text-3xl md:text-4xl lg:text-5xl">
                 Navigate the 2026 Tax Reform with Confidence
               </h1>
-              <h4 className="p-2">
+              <h4 className="p-2 text-sm sm:text-base md:text-lg">
                 Your official digital companion for understanding, calculating,
                 and complying with Nigeria's 2026 Tax Reform Act.
               </h4>
             </div>
 
-            <div className="grid grid-rows-[1fr_2fr]">
-              <div className="flex justify-center items-center pb-6 gap-6">
+            <div className="grid grid-rows-[auto_auto] mt-6 md:mt-0">
+              <div className="flex flex-col sm:flex-row justify-center items-center pb-6 gap-4 sm:gap-6">
                 <button
-                  className={
+                  className={`w-full sm:w-auto px-4 py-3 sm:py-2 rounded-md font-bold transition-colors duration-300 ease-in-out border-2 ${
                     activebtn === "check"
-                      ? "px-4 py-2 rounded-md font-bold bg-primary text-secondary hover:bg-primary/90 active:text-primary active:bg-secondary transition-colors duration-300 ease-in-out border-2 border-primary"
-                      : "px-4 py-2 rounded-md font-bold bg-secondary text-btnprimary hover:bg-secondary/90 active:text-secondary active:bg-btnprimary transition-colors duration-300 ease-in-out border-2 border-btnprimary"
-                  }
+                      ? "bg-primary text-secondary hover:bg-primary/90 active:text-primary active:bg-secondary border-primary"
+                      : "bg-secondary text-btnprimary hover:bg-secondary/90 active:text-secondary active:bg-btnprimary border-btnprimary"
+                  }`}
                   onClick={() => setActivebtn("check")}
                 >
-                  {" "}
                   <Link
                     to="/tax-calculator"
-                    className="flex justify-between gap-4 items-center"
+                    className="flex justify-center gap-2 sm:gap-4 items-center"
                   >
-                    {" "}
-                    Get Started <FaArrowRight className="h-5 w-5" />{" "}
-                  </Link>{" "}
-                </button>{" "}
+                    Get Started <FaArrowRight className="h-5 w-5" />
+                  </Link>
+                </button>
                 <button
-                  className={
+                  className={`w-full sm:w-auto px-4 py-3 sm:py-2 rounded-md font-bold transition-colors duration-300 ease-in-out border-2 ${
                     activebtn === "submit"
-                      ? "px-4 py-2 rounded-md font-bold bg-primary text-secondary hover:bg-primary/90 active:text-primary active:bg-secondary transition-colors duration-300 ease-in-out border-2 border-primary"
-                      : "px-4 py-2 rounded-md font-bold bg-secondary text-btnprimary hover:bg-secondary/90 active:text-secondary active:bg-btnprimary transition-colors duration-300 ease-in-out border-2 border-btnprimary"
-                  }
+                      ? "bg-primary text-secondary hover:bg-primary/90 active:text-primary active:bg-secondary border-primary"
+                      : "bg-secondary text-btnprimary hover:bg-secondary/90 active:text-secondary active:bg-btnprimary border-btnprimary"
+                  }`}
                   onClick={() => setActivebtn("submit")}
                 >
-                  {" "}
-                  <span className="flex justify-between gap-2 items-center">
-                    {" "}
-                    Learn More <FaPlayCircle className="h-5 w-5" />{" "}
-                  </span>{" "}
+                  <span className="flex justify-center gap-2 sm:gap-2 items-center">
+                    Learn More <FaPlayCircle className="h-5 w-5" />
+                  </span>
                 </button>
               </div>
 
-              <div className="grid grid-cols-3 gap-4 text-center pb-2">
+              <div className="grid grid-cols-3 gap-2 sm:gap-4 text-center pb-2">
                 <div>
-                  <h1 className="text-btnprimary">80%</h1>
-                  <h6>Target Compliance</h6>
+                  <h1 className="text-btnprimary text-lg sm:text-xl md:text-2xl">
+                    80%
+                  </h1>
+                  <h6 className="text-xs sm:text-sm md:text-base">
+                    Target Compliance
+                  </h6>
                 </div>
                 <div>
-                  <h1 className="text-btnprimary">₦11.5T</h1>
-                  <h6>Projected Revenue</h6>
+                  <h1 className="text-btnprimary text-lg sm:text-xl md:text-2xl">
+                    ₦11.5T
+                  </h1>
+                  <h6 className="text-xs sm:text-sm md:text-base">
+                    Projected Revenue
+                  </h6>
                 </div>
                 <div>
-                  <h1 className="text-btnprimary">90%</h1>
-                  <h6>Digital Filing Target</h6>
+                  <h1 className="text-btnprimary text-lg sm:text-xl md:text-2xl">
+                    90%
+                  </h1>
+                  <h6 className="text-xs sm:text-sm md:text-base">
+                    Digital Filing Target
+                  </h6>
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-        {/* GRAPH AREA — THIS IS THE FIX */}
-        <div className="w-[38%] h-[450px] bg-secondary shadow-lg">
-          <div className="w-full h-full p-6">
+        {/* GRAPH AREA */}
+        <div className="w-full lg:w-[38%] h-[300px] sm:h-[350px] md:h-[400px] lg:h-[450px] bg-secondary shadow-lg order-2 lg:order-2 mt-6 lg:mt-0">
+          <div className="w-full h-full p-4 sm:p-6">
             <BarChart
               style={{ width: "100%", height: "100%" }}
               chartData={heroData}

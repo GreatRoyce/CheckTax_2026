@@ -4,17 +4,13 @@ import HeroSection from "../sections/HeroSection";
 import Dashboard from "../sections/Dashboard";
 import Footer from "../sections/Footer";
 
-
 function Homepage() {
   return (
     <div>
       <div id="home">
-        {/* <Navbar /> */}
         <HeroSection />
-         <Dashboard /> 
-         <Footer />
-         
-         
+        <Dashboard />
+        <Footer />
       </div>
     </div>
   );

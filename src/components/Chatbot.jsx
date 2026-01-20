@@ -34,31 +34,18 @@ function Chatbot({ onClose }) {
   const [input, setInput] = useState("");
   const messagesEndRef = useRef(null);
 
-  // Auto-scroll to bottom when new messages arrive
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  };
-
   useEffect(() => {
-    scrollToBottom();
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
   const getResponse = (text) => {
     const message = text.toLowerCase();
 
-    if (
-      message.includes("800") ||
-      message.includes("tax free") ||
-      message.includes("no tax")
-    ) {
+    if (message.includes("800") || message.includes("tax free")) {
       return SYSTEM_RESPONSES.taxFree;
     }
 
-    if (
-      message.includes("small business") ||
-      message.includes("100") ||
-      message.includes("turnover")
-    ) {
+    if (message.includes("small business") || message.includes("turnover")) {
       return SYSTEM_RESPONSES.smallBusiness;
     }
 
@@ -74,19 +61,11 @@ function Chatbot({ onClose }) {
       return SYSTEM_RESPONSES.digitalAssets;
     }
 
-    if (
-      message.includes("company tax") ||
-      message.includes("corporate") ||
-      message.includes("large company")
-    ) {
+    if (message.includes("corporate") || message.includes("company")) {
       return SYSTEM_RESPONSES.corporateTax;
     }
 
-    if (
-      message.includes("why") ||
-      message.includes("purpose") ||
-      message.includes("reform about")
-    ) {
+    if (message.includes("purpose") || message.includes("why")) {
       return SYSTEM_RESPONSES.purpose;
     }
 
@@ -96,145 +75,99 @@ function Chatbot({ onClose }) {
   const handleSend = () => {
     if (!input.trim()) return;
 
-    const userMessage = { role: "user", text: input };
-    const botMessage = {
-      role: "bot",
-      text: getResponse(input),
-    };
+    setMessages((prev) => [
+      ...prev,
+      { role: "user", text: input },
+      { role: "bot", text: getResponse(input) },
+    ]);
 
-    setMessages((prev) => [...prev, userMessage, botMessage]);
     setInput("");
   };
 
   return (
-    <div className="absolute top-0 bottom-4 right-4 md:bottom-28 md:right-10 w-[calc(100%-2rem)] md:w-96 h-[600px] md:h-[550px] bg-white border border-gray-200 shadow-xl rounded-2xl md:rounded-xl flex flex-col z-50 overflow-hidden">
-      {/* Header - WhatsApp-like */}
-      <div className="flex items-center justify-between p-4 bg-[#008069] text-white">
+    <div
+      className="
+        fixed inset-0 
+        md:inset-auto md:bottom-28 md:right-10 
+        w-full md:w-96 
+        h-full md:h-[550px]
+        bg-white border border-gray-200 shadow-xl 
+        rounded-none md:rounded-xl 
+        flex flex-col z-50 overflow-hidden
+      "
+    >
+      {/* Header */}
+      <div className="flex items-center justify-between p-4 bg-[#008069] text-white sticky top-0 z-10">
         <div className="flex items-center space-x-3">
           <div
-            className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center bg-red-900 bg-contain bg-no-repeat bg-center"
+            className="w-8 h-8 rounded-full bg-white/20 bg-contain bg-no-repeat bg-center"
             style={{ backgroundImage: `url(${aibot})` }}
-          ></div>
-
+          />
           <div>
-            <span className="font-semibold text-base">CheckTax Assistant</span>
-            <p className="text-xs opacity-80">Online • Tax Reform Expert</p>
+            <p className="font-semibold text-sm">CheckTax Assistant</p>
+            <p className="text-xs opacity-80">Online • Tax Reform Guide</p>
           </div>
         </div>
-        <div className="flex items-center space-x-4">
-          <button className="hover:opacity-80 transition-opacity"></button>
-          <button
-            onClick={onClose}
-            className="hover:opacity-80 transition-opacity"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-            >
-              <path
-                fillRule="evenodd"
-                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                clipRule="evenodd"
-              />
-            </svg>
-          </button>
-        </div>
+
+        <button onClick={onClose} className="hover:opacity-80">
+          ✕
+        </button>
       </div>
 
-      {/* Chat Background */}
-      <div className="flex-1 bg-[#efeae2] bg-opacity-60 overflow-hidden relative">
-        {/* Background Pattern */}
-        <div
-          className="absolute inset-0 opacity-10"
-          style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000000' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-          }}
-        ></div>
-
-        {/* Messages Container */}
-        <div className="h-full overflow-y-auto p-4 space-y-3">
-          {messages.map((msg, index) => (
+      {/* Messages */}
+      <div className="flex-1 bg-[#efeae2] overflow-y-auto p-4 space-y-3">
+        {messages.map((msg, i) => (
+          <div
+            key={i}
+            className={`flex ${
+              msg.role === "user" ? "justify-end" : "justify-start"
+            }`}
+          >
             <div
-              key={index}
-              className={`flex ${
-                msg.role === "user" ? "justify-end" : "justify-start"
+              className={`max-w-[90%] sm:max-w-[85%] md:max-w-[75%] px-4 py-3 rounded-2xl text-sm ${
+                msg.role === "user"
+                  ? "bg-[#d9fdd3] rounded-tr-none"
+                  : "bg-white rounded-tl-none"
               }`}
             >
-              <div
-                className={`max-w-[85%] md:max-w-[75%] rounded-2xl px-4 py-3 ${
-                  msg.role === "user"
-                    ? "bg-[#d9fdd3] rounded-tr-none shadow-sm"
-                    : "bg-white rounded-tl-none shadow-sm"
-                }`}
-                style={{
-                  boxShadow:
-                    msg.role === "user"
-                      ? "0 1px 0.5px rgba(0,0,0,0.13)"
-                      : "0 1px 0.5px rgba(0,0,0,0.07)",
-                }}
-              >
-                <div className="text-sm text-gray-800 leading-relaxed">
-                  {msg.text}
-                </div>
-                <div
-                  className={`text-xs mt-1.5 ${
-                    msg.role === "user"
-                      ? "text-right text-gray-500"
-                      : "text-gray-400"
-                  }`}
-                >
-                  {new Date().toLocaleTimeString([], {
-                    hour: "2-digit",
-                    minute: "2-digit",
-                  })}
-                </div>
+              {msg.text}
+              <div className="text-[10px] text-gray-400 mt-1 text-right">
+                {new Date().toLocaleTimeString([], {
+                  hour: "2-digit",
+                  minute: "2-digit",
+                })}
               </div>
             </div>
-          ))}
-          <div ref={messagesEndRef} />
-        </div>
+          </div>
+        ))}
+        <div ref={messagesEndRef} />
       </div>
 
-      {/* Input Area - WhatsApp-like */}
-      <div className="p-3 bg-gray-100 border-t border-gray-300">
-        <div className="flex items-center space-x-2">
-          <button className="p-2.5 text-gray-500 hover:text-gray-700 rounded-full hover:bg-gray-200 transition-colors"></button>
-          <div className="flex-1 bg-white rounded-full border border-gray-300">
-            <input
-              type="text"
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              placeholder="Type a message..."
-              className="w-full px-4 py-2.5 bg-transparent border-0 focus:outline-none text-sm"
-              onKeyDown={(e) => e.key === "Enter" && handleSend()}
-            />
-          </div>
+      {/* Input */}
+      <div className="sticky bottom-0 p-3 bg-gray-100 border-t">
+        <div className="flex items-center gap-2">
+          <input
+            type="text"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && handleSend()}
+            placeholder="Ask about the tax reforms..."
+            className="flex-1 px-4 py-2 text-sm rounded-full border focus:outline-none"
+          />
           <button
             onClick={handleSend}
-            className={`p-2.5 rounded-full transition-all ${
+            className={`px-4 py-2 rounded-full text-sm font-medium ${
               input.trim()
-                ? "bg-[#008069] text-white hover:bg-[#007a63]"
+                ? "bg-[#008069] text-white"
                 : "bg-gray-300 text-gray-500"
             }`}
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-            >
-              <path
-                fillRule="evenodd"
-                d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-                clipRule="evenodd"
-              />
-            </svg>
+            Send
           </button>
         </div>
-        <p className="text-xs text-center text-gray-500 mt-2 px-2">
-          Ask about tax reforms, exemptions, rates, or other tax-related queries
+
+        <p className="text-xs text-center text-gray-500 mt-2">
+          Answers are based on published 2026 tax reform guidance
         </p>
       </div>
     </div>

@@ -1,45 +1,78 @@
 import React from "react";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  useLocation,
-} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
 import Homepage from "./pages/Homepage";
 import TaxCalculator from "./pages/TaxCalculator";
+import TaxGuide from "./pages/TaxGuide";
 import Navbar from "./components/Navbar";
 import NotFound from "./pages/NotFound";
-import TaxGuide from "./pages/TaxGuide";
 
-// Layout wrapper
-function Layout({ children }) {
-  const location = useLocation();
 
-  // Hide Navbar ONLY on NotFound
-  const hideNavbar = location.pathname === "/404";
-
+function MainLayout({ children }) {
   return (
     <>
-      {!hideNavbar && <Navbar />}
+      <Navbar />
       {children}
     </>
   );
 }
 
+
+function BlankLayout({ children }) {
+  return <>{children}</>;
+}
+
 function App() {
   return (
     <Router>
-      <Layout>
-        <Routes>
-          <Route path="/" element={<Homepage />} />
-          <Route path="/home" element={<Homepage />} />
-          <Route path="/tax-calculator" element={<TaxCalculator />} />
-          <Route path="/tax-guide" element={<TaxGuide />} />
+      <Routes>
+        {/* NEED navbar */}
+        <Route
+          element={
+            <MainLayout>
+              <Homepage />
+            </MainLayout>
+          }
+          path="/"
+        />
 
-          {/* Catch-all route */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </Layout>
+        <Route
+          element={
+            <MainLayout>
+              <Homepage />
+            </MainLayout>
+          }
+          path="/home"
+        />
+
+        <Route
+          element={
+            <MainLayout>
+              <TaxCalculator />
+            </MainLayout>
+          }
+          path="/tax-calculator"
+        />
+
+        <Route
+          element={
+            <MainLayout>
+              <TaxGuide />
+            </MainLayout>
+          }
+          path="/tax-guide"
+        />
+
+        {/* Catch-all 404 with NO navbar */}
+        <Route
+          path="*"
+          element={
+            <BlankLayout>
+              <NotFound />
+            </BlankLayout>
+          }
+        />
+      </Routes>
     </Router>
   );
 }

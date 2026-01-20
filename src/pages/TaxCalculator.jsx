@@ -164,8 +164,8 @@ function TaxCalculator() {
     const margin = 20;
     let y = margin;
 
-    // Header Section with Official Colors
-    doc.setFillColor(0, 51, 102); // NRS blue
+    //headr
+    doc.setFillColor(0, 135, 83);
     doc.rect(0, 0, pageWidth, 40, "F");
 
     doc.setTextColor(255, 255, 255);

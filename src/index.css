@@ -44,21 +44,10 @@ p {
   background-position: center;
 }
 
-.role{
-  display: none;
-  position: absolute;
-  top: 10;
-  left: 10;
-  background-color: #fff;
-  font-size: 10px;
-  padding: 4px;
- }
 
-.face:hover{
-  
-  .role{
-    display:block
-        
 
+@media screen and (max-width: 440px) {
+  .face {
+    transform: scale(1);
   }
 }
