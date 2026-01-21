@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { FaArrowRight, FaPlayCircle } from "react-icons/fa";
+import { IoInformationCircle } from "react-icons/io5";
 import { Link } from "react-router-dom";
 import { HeroData } from "../Data/HeroData";
 import BarChart from "../components/BarChart";
@@ -116,7 +117,7 @@ function HeroSection() {
                   onClick={() => setActivebtn("submit")}
                 >
                   <span className="flex justify-center gap-2 sm:gap-2 items-center">
-                    Learn More <FaPlayCircle className="h-5 w-5" />
+                    Learn More <IoInformationCircle className="h-5 w-5" />
                   </span>
                 </Hashlink>
               </div>
