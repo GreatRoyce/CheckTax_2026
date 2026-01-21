@@ -87,17 +87,18 @@ function Chatbot({ onClose }) {
   return (
     <div
       className="
-        fixed inset-0 
-        md:inset-auto md:bottom-28 md:right-10 
-        w-full md:w-96 
-        h-full md:h-[550px]
-        bg-white border border-gray-200 shadow-xl 
-        rounded-none md:rounded-xl 
-        flex flex-col z-50 overflow-hidden
+      fixed inset-0 
+      md:inset-auto md:bottom-28 md:right-10 
+      w-full md:w-96 
+      h-full md:h-[550px]
+      bg-white border border-gray-200 shadow-xl 
+      rounded-none md:rounded-xl 
+      flex flex-col z-50 overflow-hidden
+      
       "
     >
       {/* Header */}
-      <div className="flex items-center justify-between p-4 bg-[#008069] text-white sticky top-0 z-10">
+      <div className="flex items-center justify-between sm:mt-8 rounded-3xl p-4 bg-[#008069] text-white sticky top-0 z-10">
         <div className="flex items-center space-x-3">
           <div
             className="w-8 h-8 rounded-full bg-white/20 bg-contain bg-no-repeat bg-center"
@@ -167,7 +168,7 @@ function Chatbot({ onClose }) {
         </div>
 
         <p className="text-xs text-center text-gray-500 mt-2">
-          Answers are based on published 2026 tax reform guidance
+          Replies are based on published 2026 tax reform guidance
         </p>
       </div>
     </div>

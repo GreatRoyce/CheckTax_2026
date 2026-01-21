@@ -3,6 +3,7 @@ import CompBtn from "./CompBtn";
 import logo from "../assets/logo.jpeg";
 import { Link } from "react-router-dom";
 import { FaBars, FaTimes } from "react-icons/fa";
+import { HashLink } from 'react-router-hash-link';
 
 function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -20,17 +21,17 @@ function Navbar() {
       <nav className="border flex px-4 sm:px-6 md:px-10 mb-10 justify-between items-center w-screen h-14 fixed z-50 shadow-md backdrop-blur-2xl bg-white/90">
         {/* Logo links to home */}
         <div
-          id="#home"
+          id="#hero"
           title="Nigeria Tax Reform Portal"
           className="cursor-pointer"
         >
-          <Link to="/" onClick={closeMenu}>
+          <HashLink smooth to="/home#hero" onClick={closeMenu}>
             <img
               src={logo}
               alt="checktax logo"
               className="h-10 w-20 sm:h-12 sm:w-24"
             />
-          </Link>
+          </HashLink>
         </div>
 
         {/* Desktop Navigation Links - Hidden on mobile */}
@@ -50,7 +51,7 @@ function Navbar() {
               className="cursor-pointer hover:underline active:scale-105 transition-transform duration-300 ease-in-out"
               onClick={closeMenu}
             >
-              Tax Reform Guide
+              Tax Guide
             </Link>
           </li>
           <li>
@@ -60,6 +61,15 @@ function Navbar() {
               onClick={closeMenu}
             >
               Tax Calculator
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="/faqs"
+              className="cursor-pointer hover:underline active:scale-105 transition-transform duration-300 ease-in-out"
+              onClick={closeMenu}
+            >
+              FAQs
             </Link>
           </li>
         </ul>
@@ -132,9 +142,6 @@ function Navbar() {
                 File Return
               </CompBtn>
             </div> */}
-
-  
-           
           </div>
         </div>
 

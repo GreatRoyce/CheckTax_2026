@@ -5,6 +5,7 @@ import { FaLinkedin } from "react-icons/fa6";
 import { FaSquareXTwitter } from "react-icons/fa6";
 import { FaFacebookSquare } from "react-icons/fa";
 import { FaSquareInstagram } from "react-icons/fa6";
+import { Link } from "react-router-dom";
 import Chatbot from "../components/Chatbot";
 
 function Footer() {
@@ -62,10 +63,10 @@ function Footer() {
                 </h5>
                 <ul className="pt-2 sm:pt-4 space-y-1 sm:space-y-2">
                   <li className="opacity-70 text-xs sm:text-sm hover:underline transition-all duration-300 ease-in-out active:opacity-100 cursor-pointer">
-                    Policy Explorer
+                    <Link to="/tax-guide">Tax Guide</Link>
                   </li>
                   <li className="opacity-70 text-xs sm:text-sm hover:underline transition-all duration-300 ease-in-out active:opacity-100 cursor-pointer">
-                    Tax Calculator
+                    <Link to="/tax-calculator">Tax Calculator</Link>
                   </li>
                   <li className="opacity-70 text-xs sm:text-sm hover:underline transition-all duration-300 ease-in-out active:opacity-100 cursor-pointer">
                     FAQs

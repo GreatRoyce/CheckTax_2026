@@ -75,14 +75,16 @@ function HeroSection() {
       <div className="w-full md:w-4/5 h-full mx-auto px-4 md:px-0 flex flex-col lg:flex-row">
         {/* LEFT SECTION */}
         <div className="w-full lg:w-3/5 h-full order-1">
-          <div className="h-full mt-6 md:mt-11 grid grid-rows-[auto_auto] lg:grid-rows-[3fr_2fr]">
+          <div className="h-full mt-6 md:mt-11 grid grid-rows-[auto_auto] lg:grid-rows-2">
             <div className="pl-0 md:pl-10 text-center md:text-left">
               <h1 className="text-btnprimary mb-2 w-full md:w-4/5 text-2xl sm:text-3xl md:text-4xl lg:text-5xl">
                 Navigate the 2026 Tax Reform with Confidence
               </h1>
-              <h4 className="p-2 text-sm sm:text-base md:text-lg">
-                Your official digital companion for understanding, calculating,
-                and complying with Nigeria's 2026 Tax Reform Act.
+              <h4 className="p-2 text-sm sm:text-base md:text-md">
+                A citizen-first digital platform created to make sense of
+                Nigeria’s 2026 tax reforms, helping individuals and businesses
+                understand what applies to them, estimate tax obligations
+                accurately, and approach compliance with confidence and clarity.
               </h4>
             </div>
 
@@ -104,7 +106,7 @@ function HeroSection() {
                   </Link>
                 </button>
                 <button
-                  className={`w-full sm:w-auto px-4 py-3 sm:py-2 rounded-md font-bold transition-colors duration-300 ease-in-out border-2 ${
+                  className={`w-full  sm:w-auto px-4 py-3 sm:py-2 rounded-md font-bold transition-colors duration-300 ease-in-out border-2 ${
                     activebtn === "submit"
                       ? "bg-primary text-secondary hover:bg-primary/90 active:text-primary active:bg-secondary border-primary"
                       : "bg-secondary text-btnprimary hover:bg-secondary/90 active:text-secondary active:bg-btnprimary border-btnprimary"
@@ -119,7 +121,7 @@ function HeroSection() {
 
               <div className="grid grid-cols-3 gap-2 sm:gap-4 text-center pb-2">
                 <div>
-                  <h1 className="text-btnprimary text-lg sm:text-xl md:text-2xl">
+                  <h1 className="text-btnprimary text-2xl sm:text-4xl md:text-5xl">
                     80%
                   </h1>
                   <h6 className="text-xs sm:text-sm md:text-base">
@@ -127,7 +129,7 @@ function HeroSection() {
                   </h6>
                 </div>
                 <div>
-                  <h1 className="text-btnprimary text-lg sm:text-xl md:text-2xl">
+                  <h1 className="text-btnprimary text-2xl sm:text-4xl md:text-5xl">
                     ₦11.5T
                   </h1>
                   <h6 className="text-xs sm:text-sm md:text-base">
@@ -135,7 +137,7 @@ function HeroSection() {
                   </h6>
                 </div>
                 <div>
-                  <h1 className="text-btnprimary text-lg sm:text-xl md:text-2xl">
+                  <h1 className="text-btnprimary text-2xl sm:text-4xl md:text-5xl">
                     90%
                   </h1>
                   <h6 className="text-xs sm:text-sm md:text-base">

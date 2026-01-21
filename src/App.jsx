@@ -6,6 +6,7 @@ import TaxCalculator from "./pages/TaxCalculator";
 import TaxGuide from "./pages/TaxGuide";
 import Navbar from "./components/Navbar";
 import NotFound from "./pages/NotFound";
+import FAQ from "./pages/FAQs";
 
 
 function MainLayout({ children }) {
@@ -61,6 +62,15 @@ function App() {
             </MainLayout>
           }
           path="/tax-guide"
+        />
+
+        <Route
+          element={
+            <MainLayout>
+              <FAQ />
+            </MainLayout>
+          }
+          path="/FAQs"
         />
 
         {/* Catch-all 404 with NO navbar */}

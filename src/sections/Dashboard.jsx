@@ -79,7 +79,7 @@ const TaxGraph = ({ income, oldTax, newTax }) => {
   const scaleY = (value) => 100 - (value / maxTax) * 100;
 
   return (
-    <div className="p-2 sm:p-4 h-full">
+    <div className="p-2 sm:p-4 h-full border-3">
       <h4 className="text-base sm:text-lg font-semibold mb-2 sm:mb-4 text-gray-700">
         Tax Comparison Over Income Range
       </h4>
@@ -170,7 +170,7 @@ const TaxGraph = ({ income, oldTax, newTax }) => {
         </svg>
 
         {/* Legend */}
-        <div className="absolute bottom-1 sm:bottom-2 left-1 sm:left-2 flex flex-col gap-1 text-xs">
+        <div className="absolute bottom-1 sm:bottom-2 right-0 sm:left-2 flex flex-col gap-1 text-xs">
           <div className="flex items-center gap-1 sm:gap-2">
             <div className="w-2 sm:w-3 h-0.5 bg-red-500"></div>
             <span className="text-gray-600 text-xs">2025 Tax</span>
@@ -189,7 +189,7 @@ const TaxGraph = ({ income, oldTax, newTax }) => {
         </div>
 
         {/* Axis labels */}
-        <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 text-xs text-gray-500 whitespace-nowrap">
+        <div className="absolute bottom-0 left-0 sm:left-1/2 sm:transform-translate-x-1/2 text-xs text-gray-500 whitespace-nowrap">
           Annual Income (₦ millions)
         </div>
         <div className="absolute left-0 top-1/2 transform -translate-y-1/2 -rotate-90 text-xs text-gray-500 whitespace-nowrap origin-left">
@@ -225,12 +225,12 @@ function Dashboard() {
 
   return (
     <div className="w-full lg:w-4/5 p-3 sm:p-4 mb-8 sm:mb-32 text-center h-auto min-h-screen mx-auto">
-      <header className="py-4 sm:py-8">
+      <header className="py-4 pt-10 sm:pt-16 sm:mt-10">
         <h2 className="text-xl sm:text-2xl md:text-3xl">Dashboard</h2>
         <h4 className="text-sm sm:text-base md:text-lg">Your Tax Overview</h4>
       </header>
 
-      <main className="shadow-lg h-auto min-h-[70vh] sm:h-[88.5vh] rounded-lg border">
+      <main className="shadow-lg h-auto min-h-[84vh] sm:h-[100vh] rounded-lg border">
         {/* NAV */}
         <nav className="h-10 sm:h-12 px-3 sm:px-4 flex justify-between items-center border-b-2 border-footercolor">
           <div className="flex items-center gap-1 sm:gap-2">
@@ -244,7 +244,7 @@ function Dashboard() {
         </nav>
 
         {/* BODY */}
-        <section className="pt-2 sm:pt-4 pb-2 sm:pb-4 h-auto min-h-[60vh] sm:h-[65vh]">
+        <section className="pt-2 sm:pt-4 pb-2 sm:pb-4 h-auto min-h-[80vh] sm:h-[85vh]">
           {/* SLIDER */}
           <div className="px-3 sm:px-5 mb-4 sm:mb-8 h-auto">
             <label className="font-semibold text-base sm:text-xl text-left text-black/80 block mb-3 sm:mb-6">
@@ -271,7 +271,7 @@ function Dashboard() {
 
           {/* RESULTS */}
           <div className="h-auto grid grid-cols-1 lg:grid-cols-[3fr_1fr] gap-3 sm:gap-6 p-2 sm:p-4">
-            <div className="bg-btnprimary/10 rounded-lg h-64 sm:h-72 md:h-80 lg:h-full">
+            <div className="bg-btnprimary/10 rounded-lg h-64 sm:h-72 md:h-80 lg:h-85">
               <TaxGraph income={income} oldTax={oldTax} newTax={newTax} />
             </div>
             <div className="bg-btnprimary/10 rounded-lg p-3 sm:p-4 space-y-3 sm:space-y-4">

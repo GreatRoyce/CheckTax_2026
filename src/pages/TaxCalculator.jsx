@@ -160,25 +160,28 @@ function TaxCalculator() {
     if (!result) return;
 
     const doc = new jsPDF();
+    // ADDED
+    doc.setFont("helvetica", "normal");
+    //
     const pageWidth = doc.internal.pageSize.width;
     const margin = 20;
     let y = margin;
 
-    //headr
-    doc.setFillColor(0, 135, 83);
+    // Header Section with Official Colors
+    doc.setFillColor(0, 135, 83); // Checktax green
     doc.rect(0, 0, pageWidth, 40, "F");
 
     doc.setTextColor(255, 255, 255);
     doc.setFontSize(16);
-    doc.setFont(undefined, "bold");
-    doc.text("TAX ESTIMATE REPORT", pageWidth / 2, 25, {
+    doc.setFont("helvetica", "bold"); //changed to helvetica
+    doc.text("OFFICIAL TAX ESTIMATE REPORT", pageWidth / 2, 25, {
       align: "center",
     });
 
     doc.setFontSize(10);
-    doc.setFont(undefined, "normal");
+    doc.setFont("helvetica", "normal"); // Reset font to normal
     doc.text(
-      "Generated via CheckTax -  Tax Compliant Calculator",
+      "Generated via CheckTax - NRS Compliant Calculator",
       pageWidth / 2,
       33,
       { align: "center" },
@@ -227,12 +230,12 @@ function TaxCalculator() {
     // Tax Category with Official Classification
     doc.setFontSize(13);
     doc.setTextColor(0, 0, 0);
-    doc.setFont(undefined, "bold");
+    doc.setFont("helvetica", "bold"); //helvetica
     doc.text("TAX CATEGORY ASSESSMENT", margin, y);
     y += 8;
 
     doc.setFontSize(11);
-    doc.setFont(undefined, "normal");
+    doc.setFont("helvetica", "normal");
     doc.text(`Category: ${selectedTax.title}`, margin + 5, y);
     y += 6;
 
@@ -302,7 +305,7 @@ function TaxCalculator() {
         inputLabels[key] || key.replace(/([A-Z])/g, " $1").toUpperCase();
       doc.text(`• ${label}:`, margin + 5, y);
       doc.text(
-        `₦${Number(value).toLocaleString()}`,
+        `NGN ${Number(value).toLocaleString()}`,
         pageWidth - margin - 50,
         y,
       );
@@ -313,21 +316,20 @@ function TaxCalculator() {
     // Calculation Results Section with Box
     doc.setDrawColor(0, 51, 102);
     doc.setFillColor(240, 245, 250);
-    // doc.roundedRect(margin, y, pageWidth - 1 * margin, 30, 3, 3, "F");
+    doc.roundedRect(margin, y, pageWidth - 2 * margin, 30, 3, 3, "F");
 
     doc.setFontSize(12);
-    doc.setFont(undefined, "bold");
+    doc.setFont("helvetica", "bold");
     doc.setTextColor(0, 51, 102);
     doc.text("TAX LIABILITY ESTIMATE", margin + 5, y + 8);
 
     doc.setFontSize(11);
-    doc.setFont(undefined, "normal");
+    doc.setFont("helvetica", "normal");
     doc.text("Taxable Base Amount:", margin + 10, y + 18);
-
     doc.text(
-      `₦${Number(result.tax).toLocaleString()}`,
+      `NGN ${Number(result.taxableIncome).toLocaleString()}`,
       pageWidth - margin - 10,
-      y + 10,
+      y + 18,
       { align: "right" },
     );
 
@@ -357,10 +359,10 @@ function TaxCalculator() {
     doc.roundedRect(margin, y, pageWidth - 2 * margin, 15, 3, 3, "F");
 
     doc.setTextColor(255, 255, 255);
-    doc.setFont(undefined, "bold");
+    doc.setFont("helvetica", "bold");
     doc.text("ESTIMATED TAX LIABILITY:", margin + 10, y + 10);
     doc.text(
-      `₦${Number(result.tax).toLocaleString()}`,
+      `NGN ${Number(result.tax).toLocaleString()}`,
       pageWidth - margin - 10,
       y + 10,
       { align: "right" },
@@ -376,7 +378,7 @@ function TaxCalculator() {
     y += 8;
 
     doc.setFontSize(10);
-    doc.setFont(undefined, "normal");
+    doc.setFont("helvetica", "normal");
     const methodologyText = doc.splitTextToSize(
       result.explanation,
       pageWidth - 2 * margin,
@@ -389,37 +391,37 @@ function TaxCalculator() {
 
     // 2026 Reform Specific Provisions
     doc.setFontSize(11);
-    doc.setFont(undefined, "bold");
+    doc.setFont("helvetica", "bold");
     doc.setTextColor(0, 51, 102);
     doc.text("2026 TAX REFORM PROVISIONS APPLIED", margin, y);
     y += 8;
 
     doc.setFontSize(9);
-    doc.setFont(undefined, "normal");
+    doc.setFont("helvetica", "normal");
     doc.setTextColor(60, 60, 60);
 
     const reformProvisions = {
       personal_income: [
-        "✓ Consolidated Relief Allowance: 20% of gross income + ₦200,000",
+        "✓ Consolidated Relief Allowance: 20% of gross income + NGN200,000",
         "✓ Pension contributions deductible up to 20% of gross income",
         "✓ NHF contributions fully deductible",
         "✓ Minimum tax provisions may apply if taxable income is nil",
       ],
       corporate: [
-        "✓ Small companies (<₦25M turnover): 0% first ₦100M profit",
+        "✓ Small companies (<₦25M turnover): 0% first NGN100M profit",
         "✓ Medium companies: 20% tax rate",
         "✓ Large companies: 25% tax rate",
         "✓ Losses can be carried forward for 4 years",
       ],
       vat: [
         "✓ VAT rate: 7.5% on taxable goods and services",
-        "✓ Registration threshold: ₦25M annual turnover",
+        "✓ Registration threshold: NGN25M annual turnover",
         "✓ Input VAT fully creditable against output VAT",
         "✓ Exports and basic food items: 0% VAT",
       ],
       capital_gains: [
         "✓ 10% rate on chargeable assets",
-        "✓ Annual exemption: ₦500,000 for individuals",
+        "✓ Annual exemption: NGN500,000 for individuals",
         "✓ Principal private residence: Fully exempt",
         "✓ 25% discount for assets held >5 years",
       ],
@@ -427,7 +429,7 @@ function TaxCalculator() {
         "✓ Digital assets defined to include cryptocurrencies, NFTs, tokens",
         "✓ 10% on net gains from disposal",
         "✓ Trading fees and transaction costs deductible",
-        "✓ Annual exemption: ₦300,000 for individuals",
+        "✓ Annual exemption: NGN300,000 for individuals",
       ],
       withholding: [
         "✓ Rates vary by transaction type (5-10%)",
@@ -447,12 +449,12 @@ function TaxCalculator() {
 
     // Important Deadlines & Compliance
     doc.setFontSize(11);
-    doc.setFont(undefined, "bold");
+    doc.setFont("helvetica", "bold");
     doc.text("COMPLIANCE INFORMATION", margin, y);
     y += 8;
 
     doc.setFontSize(9);
-    doc.setFont(undefined, "normal");
+    doc.setFont("helvetica", "normal");
 
     const deadlines = {
       personal_income: [
@@ -502,14 +504,14 @@ function TaxCalculator() {
 
     doc.setFontSize(8);
     doc.setTextColor(255, 0, 0);
-    doc.setFont(undefined, "bold");
+    doc.setFont("helvetica", "bold");
     doc.text("IMPORTANT DISCLAIMER & LEGAL NOTICE", pageWidth / 2, y, {
       align: "center",
     });
     y += 5;
 
     doc.setFontSize(7);
-    doc.setFont(undefined, "normal");
+    doc.setFont("helvetica", "normal");
     doc.setTextColor(100, 0, 0);
 
     const disclaimerText = [
@@ -561,7 +563,6 @@ function TaxCalculator() {
       `NRS-Tax-Estimate-${selectedTax.key.toUpperCase()}-${Date.now()}.pdf`,
     );
   };
-
   const resetView = () => {
     setSelectedTax(null);
     setFormData({});
@@ -570,145 +571,217 @@ function TaxCalculator() {
 
   return (
     <div>
-      <div className="bg-secondary py-28">
-        <header className="mx-auto text-center space-y-2 pt-2">
-          <h2 className="text-black/85">Tax Calculator</h2>
-          <h6>Calculate your estimated tax liability</h6>
+      <div className="bg-secondary py-8 sm:py-12 md:py-20 lg:py-28">
+        <header className="mx-auto text-center space-y-2 pt-2 px-4">
+          <h2 className="text-black/85 text-2xl sm:text-3xl md:text-4xl">
+            Tax Calculator
+          </h2>
+          <h6 className="text-sm sm:text-base md:text-lg">
+            Calculate your estimated tax liability
+          </h6>
         </header>
 
-        <main className="h-[70vh] py-2 px-28 mt-6 mx-auto">
-          <h5 className="font-bold text-black/85">Select Tax Type</h5>
+        <main className="min-h-[70vh] py-2 px-4 sm:px-6 md:px-8 lg:px-28 mt-4 md:mt-6 mx-auto">
+          <h5 className="font-bold text-black/85 text-lg md:text-xl mb-4">
+            Select Tax Type
+          </h5>
 
-          <div className="grid grid-cols-[3fr_1.2fr] gap-10">
-            <section className="pt-6">
-              {!selectedTax ? (
-                <div className="grid grid-cols-3 gap-6">
-                  {taxTypes.map((item) => (
-                    <div
-                      key={item.id}
-                      onClick={() => {
-                        setSelectedTax(item);
-                        setFormData({});
-                        setResult(null);
-                      }}
-                      className="shade border-2 text-center border-primary rounded-lg p-4 hover:shadow-xl cursor-pointer"
-                    >
-                      <div className="flex text-primary text-5xl justify-center">
-                        {item.icon}
-                      </div>
-                      <h4 className="font-bold p-2">{item.title}</h4>
-                      <h4 className="font-normal">{item.subtitle}</h4>
-                    </div>
-                  ))}
+          {!selectedTax ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+              {taxTypes.map((item) => (
+                <div
+                  key={item.id}
+                  onClick={() => {
+                    setSelectedTax(item);
+                    setFormData({});
+                    setResult(null);
+                  }}
+                  className="shade border-2 text-center border-primary rounded-lg p-4 hover:shadow-xl cursor-pointer transition-all duration-300"
+                >
+                  <div className="flex text-primary text-3xl md:text-4xl lg:text-5xl justify-center mb-2">
+                    {item.icon}
+                  </div>
+                  <h4 className="font-bold p-1 md:p-2 text-base md:text-lg">
+                    {item.title}
+                  </h4>
+                  <h4 className="font-normal text-xs sm:text-sm md:text-base">
+                    {item.subtitle}
+                  </h4>
                 </div>
-              ) : (
-                <div className="border-2 border-dashed rounded-lg p-6">
-                  <h3 className="font-bold mb-4">{selectedTax.title}</h3>
+              ))}
+            </div>
+          ) : (
+            <div className="flex flex-col lg:flex-row gap-6 lg:gap-10">
+              {/* LEFT SIDE - Input Form */}
+              <div className="lg:w-3/4">
+                <div className="border-2 border-dashed rounded-lg p-4 md:p-6 mb-6">
+                  <div className="flex justify-between items-center mb-4">
+                    <h3 className="font-bold text-lg md:text-xl">
+                      {selectedTax.title}
+                    </h3>
+                    <button
+                      onClick={resetView}
+                      className="text-sm text-primary underline hover:text-primary/80 transition-colors duration-300"
+                    >
+                      ← Back to Tax Types
+                    </button>
+                  </div>
 
                   {selectedTax.inputs.map((input) => (
                     <div key={input.name} className="mb-4">
-                      <label className="block text-sm mb-1">
+                      <label className="block text-sm md:text-base mb-1">
                         {input.label}
+                        {input.optional && (
+                          <span className="text-gray-500 text-xs ml-2">
+                            (optional)
+                          </span>
+                        )}
                       </label>
                       <input
                         type="number"
-                        className="w-3/4 border rounded-xl px-3 py-2"
+                        className="w-full border rounded-xl px-3 py-2 md:py-2 text-sm md:text-base"
                         value={formData[input.name] || ""}
                         onChange={(e) =>
                           handleInputChange(input.name, e.target.value)
                         }
+                        placeholder="0"
                       />
                     </div>
                   ))}
 
-                  <div className="flex gap-4 items-center">
+                  <div className="flex flex-col sm:flex-row gap-3 md:gap-4 items-start sm:items-center">
                     <button
                       onClick={handleCalculate}
-                      className="bg-primary text-white px-4 py-2 rounded"
+                      className="bg-primary text-white px-4 py-2 rounded hover:bg-primary/90 transition-colors duration-300 text-sm md:text-base w-full sm:w-auto"
                     >
                       Calculate
                     </button>
 
                     {result && (
-                      <div className="text-sm">
+                      <div className="text-sm md:text-base bg-gray-100 p-3 rounded-lg w-full sm:w-auto">
                         <strong>Estimated Tax:</strong> ₦
                         {result.tax.toLocaleString()}
                       </div>
                     )}
-
-                    <button
-                      onClick={resetView}
-                      className="text-sm text-primary underline"
-                    >
-                      ← Back
-                    </button>
-                  </div>
-                </div>
-              )}
-            </section>
-            {/* RIGHT SIDE – TIPS */}
-            <div className="grid grid-rows-[4fr_1fr]">
-              <section className="border border-gray-900 h-fit rounded-lg py-8 px-4">
-                <div className="text-left">
-                  <div className="flex items-center space-x-2 pb-6">
-                    <span className="text-2xl">💡</span>
-                    <h5>Tips</h5>
                   </div>
 
-                  <p className="mb-2">
-                    • Enter annual figures, not monthly amounts
-                  </p>
-                  <hr className="border-t border-gray-300 my-2" />
+                  {/* PDF Button for Mobile - Below Calculate Button */}
+                  {selectedTax && result && (
+                    <div className="block lg:hidden mt-6">
+                      <CompBtn
+                        onClick={generatePDF}
+                        className="px-4 py-3 font-semibold w-full justify-center text-sm md:text-base"
+                        variant="primary"
+                      >
+                        Download PDF Summary
+                      </CompBtn>
+                    </div>
+                  )}
 
-                  <p className="mb-2">
-                    • Pension and housing contributions may reduce taxable
-                    income
-                  </p>
-                  <hr className="border-t border-gray-300 my-2" />
+                  {/* Tips for Mobile - Below PDF Button */}
+                  <div className="block lg:hidden mt-8">
+                    <section className="border border-gray-900 rounded-lg py-6 px-4">
+                      <div className="text-left">
+                        <div className="flex items-center space-x-2 pb-4 md:pb-6">
+                          <span className="text-2xl">💡</span>
+                          <h5 className="text-lg md:text-xl font-semibold">
+                            Tips
+                          </h5>
+                        </div>
 
-                  <p className="mb-2">
-                    • Capital gains apply only to profits, not total sale value
-                  </p>
-                  <hr className="border-t border-gray-300 my-2" />
+                        <div className="space-y-3">
+                          <p className="text-sm md:text-base">
+                            • Enter annual figures, not monthly amounts
+                          </p>
+                          <hr className="border-t border-gray-300" />
 
-                  <p className="mb-2">
-                    • VAT is typically collected from customers, not absorbed by
-                    sellers
-                  </p>
-                  <hr className="border-t border-gray-300 my-2" />
+                          <p className="text-sm md:text-base">
+                            • Pension and housing contributions may reduce
+                            taxable income
+                          </p>
+                          <hr className="border-t border-gray-300" />
 
-                  <p className="mb-2">
-                    • Always refer to the Nigeria Revenue Service for official
-                    filing
-                  </p>
+                          <p className="text-sm md:text-base">
+                            • Capital gains apply only to profits, not total
+                            sale value
+                          </p>
+                          <hr className="border-t border-gray-300" />
+
+                          <p className="text-sm md:text-base">
+                            • VAT is typically collected from customers, not
+                            absorbed by sellers
+                          </p>
+                          <hr className="border-t border-gray-300" />
+
+                          <p className="text-sm md:text-base">
+                            • Always refer to the Nigeria Revenue Service for
+                            official filing
+                          </p>
+                        </div>
+                      </div>
+                    </section>
+                  </div>
                 </div>
-              </section>
+              </div>
 
-              <div className="flex justify-center items-center">
-                {selectedTax && result && (
-                  <CompBtn
-                    onClick={generatePDF}
-                    className="px-4 py-2 font-semibold"
-                    variant="primary"
-                  >
-                    Download PDF Summary
-                  </CompBtn>
-                )}
+              {/* RIGHT SIDE - Tips & PDF Button for Desktop */}
+              <div className="hidden lg:block lg:w-1/4">
+                <div className="sticky top-6">
+                  <section className="border border-gray-900 h-fit rounded-lg py-8 px-4 mb-6">
+                    <div className="text-left">
+                      <div className="flex items-center space-x-2 pb-6">
+                        <span className="text-2xl">💡</span>
+                        <h5 className="text-lg font-semibold">Tips</h5>
+                      </div>
+
+                      <div className="space-y-3">
+                        <p className="text-sm">
+                          • Enter annual figures, not monthly amounts
+                        </p>
+                        <hr className="border-t border-gray-300" />
+
+                        <p className="text-sm">
+                          • Pension and housing contributions may reduce taxable
+                          income
+                        </p>
+                        <hr className="border-t border-gray-300" />
+
+                        <p className="text-sm">
+                          • Capital gains apply only to profits, not total sale
+                          value
+                        </p>
+                        <hr className="border-t border-gray-300" />
+
+                        <p className="text-sm">
+                          • VAT is typically collected from customers, not
+                          absorbed by sellers
+                        </p>
+                        <hr className="border-t border-gray-300" />
+
+                        <p className="text-sm">
+                          • Always refer to the Nigeria Revenue Service for
+                          official filing
+                        </p>
+                      </div>
+                    </div>
+                  </section>
+
+                  {/* PDF Button for Desktop */}
+                  {selectedTax && result && (
+                    <div className="flex justify-center">
+                      <CompBtn
+                        onClick={generatePDF}
+                        className="px-4 py-3 font-semibold w-full justify-center"
+                        variant="primary"
+                      >
+                        Download PDF Summary
+                      </CompBtn>
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
-
-            {/* <div className="flex items-end justify-center">
-              {selectedTax && result && (
-                <CompBtn
-                  onClick={generatePDF}
-                  className="px-4 py-2 font-semibold"
-                  variant="primary"
-                >
-                  Download PDF Summary
-                </CompBtn>
-              )}
-            </div> */}
-          </div>
+          )}
         </main>
       </div>
 
