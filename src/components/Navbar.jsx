@@ -3,7 +3,7 @@ import CompBtn from "./CompBtn";
 import logo from "../assets/logo.jpeg";
 import { Link } from "react-router-dom";
 import { FaBars, FaTimes } from "react-icons/fa";
-import { HashLink } from 'react-router-hash-link';
+import { HashLink } from "react-router-hash-link";
 
 function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -25,7 +25,7 @@ function Navbar() {
           title="Nigeria Tax Reform Portal"
           className="cursor-pointer"
         >
-          <HashLink smooth to="/home#hero" onClick={closeMenu}>
+          <HashLink smooth to="/home#" onClick={closeMenu}>
             <img
               src={logo}
               alt="checktax logo"
@@ -38,7 +38,7 @@ function Navbar() {
         <ul className="hidden md:flex gap-6 lg:gap-10 justify-between items-center text-md font-bold text-btnprimary">
           <li>
             <Link
-              to="/home"
+              to="/home#"
               className="cursor-pointer hover:underline active:scale-105 transition-transform duration-300 ease-in-out"
               onClick={closeMenu}
             >
@@ -47,7 +47,7 @@ function Navbar() {
           </li>
           <li>
             <Link
-              to="/tax-guide"
+              to="/tax-guide#"
               className="cursor-pointer hover:underline active:scale-105 transition-transform duration-300 ease-in-out"
               onClick={closeMenu}
             >
@@ -56,7 +56,7 @@ function Navbar() {
           </li>
           <li>
             <Link
-              to="/tax-calculator"
+              to="/tax-calculator#"
               className="cursor-pointer hover:underline active:scale-105 transition-transform duration-300 ease-in-out"
               onClick={closeMenu}
             >
@@ -65,7 +65,7 @@ function Navbar() {
           </li>
           <li>
             <Link
-              to="/faqs"
+              to="/faqs#"
               className="cursor-pointer hover:underline active:scale-105 transition-transform duration-300 ease-in-out"
               onClick={closeMenu}
             >
@@ -131,6 +131,16 @@ function Navbar() {
                   Tax Calculator
                 </Link>
               </li>
+              <li>
+                <Link
+                  to="/faqs"
+                  className="block py-2 px-4 hover:bg-primary/10 rounded-md transition-colors duration-200"
+                  onClick={closeMenu}
+                >
+                  FAQs
+                </Link>
+              </li>
+          
             </ul>
 
             {/* Mobile Buttons */}

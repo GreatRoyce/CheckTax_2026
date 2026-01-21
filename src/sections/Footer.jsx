@@ -7,6 +7,7 @@ import { FaFacebookSquare } from "react-icons/fa";
 import { FaSquareInstagram } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import Chatbot from "../components/Chatbot";
+import { HashLink } from "react-router-hash-link";
 
 function Footer() {
   const [face, setFace] = useState(false);
@@ -63,13 +64,19 @@ function Footer() {
                 </h5>
                 <ul className="pt-2 sm:pt-4 space-y-1 sm:space-y-2">
                   <li className="opacity-70 text-xs sm:text-sm hover:underline transition-all duration-300 ease-in-out active:opacity-100 cursor-pointer">
-                    <Link to="/tax-guide">Tax Guide</Link>
+                    <HashLink smooth to="/tax-guide#">
+                      Tax Guide
+                    </HashLink>
                   </li>
                   <li className="opacity-70 text-xs sm:text-sm hover:underline transition-all duration-300 ease-in-out active:opacity-100 cursor-pointer">
-                    <Link to="/tax-calculator">Tax Calculator</Link>
+                    <HashLink smooth to="/tax-calculator#">
+                      Tax Calculator
+                    </HashLink>
                   </li>
                   <li className="opacity-70 text-xs sm:text-sm hover:underline transition-all duration-300 ease-in-out active:opacity-100 cursor-pointer">
-                    FAQs
+                    <HashLink smooth to="/faqs#">
+                      FAQs
+                    </HashLink>
                   </li>
                 </ul>
               </div>
@@ -79,16 +86,24 @@ function Footer() {
                 <h5 className="text-base sm:text-lg font-semibold">Legal</h5>
                 <ul className="pt-2 sm:pt-4 space-y-1 sm:space-y-2">
                   <li className="opacity-70 text-xs sm:text-sm transition-all hover:underline duration-300 ease-in-out active:opacity-100 cursor-pointer">
-                    Privacy Policy
+                    <HashLink smooth to="/legal#privacy">
+                      Privacy Policy
+                    </HashLink>
                   </li>
                   <li className="opacity-70 text-xs sm:text-sm transition-all hover:underline duration-300 ease-in-out active:opacity-100 cursor-pointer">
-                    Terms of Service
+                    <HashLink smooth to="/legal#terms">
+                      Terms of Service
+                    </HashLink>
                   </li>
                   <li className="opacity-70 text-xs sm:text-sm transition-all hover:underline duration-300 ease-in-out active:opacity-100 cursor-pointer">
-                    Compliance
+                    <HashLink smooth to="/legal#compliance">
+                      Compliance
+                    </HashLink>
                   </li>
                   <li className="opacity-70 text-xs sm:text-sm transition-all hover:underline duration-300 ease-in-out active:opacity-100 cursor-pointer">
-                    Disclaimer
+                    <HashLink smooth to="/legal#disclaimer">
+                      Disclaimer
+                    </HashLink>
                   </li>
                 </ul>
               </div>

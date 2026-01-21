@@ -32,7 +32,7 @@ function TaxGuide() {
         {/* Header */}
         <div className="max-w-6xl mx-auto">
           <div className="text-center mt-16 mb-10">
-            <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
+            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900/85 mb-4">
               Nigeria's 2026 Tax Reforms Guide
             </h1>
             <p className="text-gray-600 text-base sm:text-lg max-w-3xl mx-auto leading-relaxed">
@@ -45,7 +45,6 @@ function TaxGuide() {
           <div className="grid grid-cols-1 text-center sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
             <div className="bg-white rounded-lg p-5 border border-gray-200 shadow-sm">
               <div className="flex items-center justify-center gap-3 mb-3">
-                <TbCurrencyNaira className="text-primary text-2xl" />
                 <div className="text-3xl font-bold text-primary">₦800k</div>
               </div>
               <p className="text-sm text-gray-600 font-medium">
@@ -55,7 +54,6 @@ function TaxGuide() {
 
             <div className="bg-white rounded-lg p-5 border border-gray-200 shadow-sm">
               <div className="flex items-center justify-center gap-3 mb-3">
-                <MdOutlineBusinessCenter className="text-primary text-2xl" />
                 <div className="text-3xl font-bold text-primary">₦100M</div>
               </div>
               <p className="text-sm text-gray-600 font-medium">
@@ -65,7 +63,6 @@ function TaxGuide() {
 
             <div className="bg-white rounded-lg p-5 border border-gray-200 shadow-sm">
               <div className="flex items-center justify-center gap-3 mb-3">
-                <FaHome className="text-primary text-2xl" />
                 <div className="text-3xl font-bold text-primary">20%</div>
               </div>
               <p className="text-sm text-gray-600 font-medium">
@@ -75,7 +72,6 @@ function TaxGuide() {
 
             <div className="bg-white rounded-lg p-5 border border-gray-200 shadow-sm">
               <div className="flex items-center justify-center gap-3 mb-3">
-                <TbBuildingSkyscraper className="text-primary text-2xl" />
                 <div className="text-3xl font-bold text-primary">15%</div>
               </div>
               <p className="text-sm text-gray-600 font-medium">
@@ -95,9 +91,10 @@ function TaxGuide() {
                     <FaBullseye className="text-primary text-xl" />
                   </div>
                   <div>
-                    <h3 className=" font-bold text-gray-900 mb-2">
+                    <h5 className=" font-bold text-gray-900 mb-2">
                       Purpose of the Tax Reforms
-                    </h3>
+                    </h5>
+
                     <h4 className=" text-gray-600">
                       Understanding why the tax system needed reform
                     </h4>
@@ -130,9 +127,9 @@ function TaxGuide() {
                     <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
                       <FaMoneyBillAlt className="text-primary" />
                     </div>
-                    <h3 className="font-bold text-gray-900">
+                    <h5 className="font-bold text-gray-900">
                       Personal Income Tax
-                    </h3>
+                    </h5>
                   </div>
 
                   <div className="space-y-3">
@@ -162,7 +159,7 @@ function TaxGuide() {
                     <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
                       <FaHome className="text-primary" />
                     </div>
-                    <h3 className="font-bold text-gray-900">Rent Relief</h3>
+                    <h5 className="font-bold text-gray-900">Rent Relief</h5>
                   </div>
 
                   <div className="space-y-3">
@@ -206,9 +203,9 @@ function TaxGuide() {
                     <FaBuilding className="text-primary text-xl" />
                   </div>
                   <div>
-                    <h2 className="text-xl font-bold text-gray-900 mb-2">
+                    <h5 className="text-xl font-bold text-gray-900 mb-2">
                       Business Tax Changes
-                    </h2>
+                    </h5>
                     <h4 className="text-gray-600">
                       Different rules for small and large businesses
                     </h4>
@@ -255,9 +252,9 @@ function TaxGuide() {
                     <FaCoins className="text-primary text-xl" />
                   </div>
                   <div>
-                    <h2 className="text-xl font-bold text-gray-900 mb-2">
+                    <h5 className="text-xl font-bold text-gray-900 mb-2">
                       Digital Assets & Property
-                    </h2>
+                    </h5>
                     <h4 className="text-gray-600">
                       New rules for modern assets
                     </h4>

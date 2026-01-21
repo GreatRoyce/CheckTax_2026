@@ -13,7 +13,7 @@ function FAQs() {
     },
     {
       question:
-        "Is CheckTax an official Nigeria Revenue Service (NRS) platform?",
+        "Is CheckTax an official Nigeria Revenue Service platform?",
       answer:
         "No. CheckTax is an independent explainer tool. It is not owned, run, or endorsed by the Nigeria Revenue Service. For official filings, disputes, or enforcement matters, the NRS remains the authority.",
     },
@@ -135,7 +135,7 @@ function FAQs() {
                   }}
                 >
                   <span
-                    className="font-semibold text-lg pr-4"
+                    className="font-semibold text-md pr-4 w-3/4"
                     style={{ color: "#006641" }}
                   >
                     {item.question}
@@ -149,7 +149,7 @@ function FAQs() {
 
                 {openIndex === index && (
                   <div className="px-6 pb-6 pt-2 border-t">
-                    <p className="text-gray-700 leading-relaxed">
+                    <p className="text-gray-700 text-[14px] leading-relaxed">
                       {item.answer}
                     </p>
 
@@ -277,7 +277,7 @@ function FAQs() {
                 </h3>
                 <div className="space-y-3">
                   <a
-                    href="/tax-calculator"
+                    href="/tax-calculator#"
                     className="block p-3 rounded-lg border hover:shadow-sm transition-shadow"
                     style={{ borderColor: "#f3f4f6" }}
                   >
@@ -288,7 +288,7 @@ function FAQs() {
                       Estimate your tax bracket
                     </p>
                   </a>
-                  <HashLink smooth to="/home#dashboard"
+                  <HashLink smooth to="/home#"
                     className="block p-3 rounded-lg border hover:shadow-sm transition-shadow"
                     style={{ borderColor: "#f3f4f6" }}
                   >

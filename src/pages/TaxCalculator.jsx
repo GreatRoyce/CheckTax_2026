@@ -571,7 +571,7 @@ function TaxCalculator() {
 
   return (
     <div>
-      <div className="bg-secondary py-8 sm:py-12 md:py-20 lg:py-28">
+      <div className="bg-secondary pt-20 py-8 sm:py-12 md:py-20 lg:py-28">
         <header className="mx-auto text-center space-y-2 pt-2 px-4">
           <h2 className="text-black/85 text-2xl sm:text-3xl md:text-4xl">
             Tax Calculator

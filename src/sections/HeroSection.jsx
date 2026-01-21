@@ -3,6 +3,8 @@ import { FaArrowRight, FaPlayCircle } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { HeroData } from "../Data/HeroData";
 import BarChart from "../components/BarChart";
+import { HashLink as Hashlink } from "react-router-hash-link";
+
 
 function HeroSection() {
   const [heroData] = useState({
@@ -98,14 +100,14 @@ function HeroSection() {
                   }`}
                   onClick={() => setActivebtn("check")}
                 >
-                  <Link
+                  <Hashlink
                     to="/tax-calculator"
                     className="flex justify-center gap-2 sm:gap-4 items-center"
                   >
-                    Get Started <FaArrowRight className="h-5 w-5" />
-                  </Link>
+                    Calculate Tax <FaArrowRight className="h-5 w-5" />
+                  </Hashlink>
                 </button>
-                <button
+                <Hashlink smooth to="/tax-guide"
                   className={`w-full  sm:w-auto px-4 py-3 sm:py-2 rounded-md font-bold transition-colors duration-300 ease-in-out border-2 ${
                     activebtn === "submit"
                       ? "bg-primary text-secondary hover:bg-primary/90 active:text-primary active:bg-secondary border-primary"
@@ -116,7 +118,7 @@ function HeroSection() {
                   <span className="flex justify-center gap-2 sm:gap-2 items-center">
                     Learn More <FaPlayCircle className="h-5 w-5" />
                   </span>
-                </button>
+                </Hashlink>
               </div>
 
               <div className="grid grid-cols-3 gap-2 sm:gap-4 text-center pb-2">

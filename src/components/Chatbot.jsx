@@ -98,7 +98,7 @@ function Chatbot({ onClose }) {
       "
     >
       {/* Header */}
-      <div className="flex items-center justify-between sm:mt-8 rounded-3xl p-4 bg-[#008069] text-white sticky top-0 z-10">
+      <div className="flex items-center justify-between sm:my-2 rounded-3xl p-4 bg-[#008069] text-white sticky top-0 z-10">
         <div className="flex items-center space-x-3">
           <div
             className="w-8 h-8 rounded-full bg-white/20 bg-contain bg-no-repeat bg-center"

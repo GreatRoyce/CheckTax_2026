@@ -7,6 +7,7 @@ import TaxGuide from "./pages/TaxGuide";
 import Navbar from "./components/Navbar";
 import NotFound from "./pages/NotFound";
 import FAQ from "./pages/FAQs";
+import Legal from "./pages/Legal";
 
 
 function MainLayout({ children }) {
@@ -71,6 +72,15 @@ function App() {
             </MainLayout>
           }
           path="/FAQs"
+        />
+
+        <Route
+          element={
+            <MainLayout>
+              <Legal />
+            </MainLayout>
+          }
+          path="/legal"
         />
 
         {/* Catch-all 404 with NO navbar */}
