@@ -85,7 +85,7 @@ const calculateTax = (taxKey, data) => {
           taxableIncome: 0,
           tax: 0,
           explanation:
-            "Under the 2026 Tax Reform Act, individuals earning ₦800,000 or less per annum are fully exempt.",
+            "Under the 2026 Tax Reform Act, individuals earning NGN800,000 or less per annum are fully exempt.",
         };
       }
 
@@ -117,7 +117,7 @@ const calculateTax = (taxKey, data) => {
         taxableIncome,
         tax,
         explanation:
-          "Personal Income Tax is calculated after applying the ₦800,000 exemption, consolidated relief allowance, approved deductions, and progressive tax bands as prescribed under the 2026 reforms.",
+          "Personal Income Tax is calculated after applying the NGN800,000 exemption, consolidated relief allowance, approved deductions, and progressive tax bands as prescribed under the 2026 reforms.",
       };
     }
 
@@ -218,12 +218,22 @@ function TaxCalculator() {
     if (!result) return;
 
     const doc = new jsPDF();
-    // ADDED
     doc.setFont("helvetica", "normal");
-    //
+
     const pageWidth = doc.internal.pageSize.width;
+    const pageHeight = doc.internal.pageSize.height;
     const margin = 20;
     let y = margin;
+    let isFirstPage = true;
+
+    // Helper function to add new page if needed
+    const checkPageBreak = (requiredHeight) => {
+      if (y + requiredHeight > pageHeight - margin) {
+        doc.addPage();
+        y = margin;
+        isFirstPage = false;
+      }
+    };
 
     // Header Section with Official Colors
     doc.setFillColor(0, 135, 83); // Checktax green
@@ -231,13 +241,13 @@ function TaxCalculator() {
 
     doc.setTextColor(255, 255, 255);
     doc.setFontSize(16);
-    doc.setFont("helvetica", "bold"); //changed to helvetica
+    doc.setFont("helvetica", "bold");
     doc.text("OFFICIAL TAX ESTIMATE REPORT", pageWidth / 2, 25, {
       align: "center",
     });
 
     doc.setFontSize(10);
-    doc.setFont("helvetica", "normal"); // Reset font to normal
+    doc.setFont("helvetica", "normal");
     doc.text(
       "Generated via CheckTax - NRS Compliant Calculator",
       pageWidth / 2,
@@ -260,6 +270,7 @@ function TaxCalculator() {
     y += 10;
 
     // Tax Reform Context Header
+    checkPageBreak(15);
     doc.setDrawColor(255, 193, 7); // Gold accent
     doc.setLineWidth(0.5);
     doc.line(margin, y, pageWidth - margin, y);
@@ -286,9 +297,10 @@ function TaxCalculator() {
     y += 12;
 
     // Tax Category with Official Classification
+    checkPageBreak(30);
     doc.setFontSize(13);
     doc.setTextColor(0, 0, 0);
-    doc.setFont("helvetica", "bold"); //helvetica
+    doc.setFont("helvetica", "bold");
     doc.text("TAX CATEGORY ASSESSMENT", margin, y);
     y += 8;
 
@@ -334,6 +346,7 @@ function TaxCalculator() {
     y += 10;
 
     // Input Information Section
+    checkPageBreak(30);
     doc.setFontSize(12);
     doc.setFont("helvetica", "bold");
     doc.setTextColor(0, 51, 102);
@@ -353,9 +366,6 @@ function TaxCalculator() {
       sales: "Total Taxable Sales (VATable)",
       gain: "Capital Gain Realized",
       payment: "Gross Payment Amount",
-      vatCredit: "Input VAT Credit",
-      lossRelief: "Loss Relief Carried Forward",
-      exemptAmount: "Annual Exempt Amount",
     };
 
     Object.entries(formData).forEach(([key, value]) => {
@@ -372,9 +382,10 @@ function TaxCalculator() {
     y += 8;
 
     // Calculation Results Section with Box
+    checkPageBreak(40);
     doc.setDrawColor(0, 51, 102);
     doc.setFillColor(240, 245, 250);
-    doc.roundedRect(margin, y, pageWidth - 2 * margin, 30, 3, 3, "F");
+    doc.roundedRect(margin, y, pageWidth - 2 * margin, 35, 3, 3, "F");
 
     doc.setFontSize(12);
     doc.setFont("helvetica", "bold");
@@ -410,17 +421,36 @@ function TaxCalculator() {
       align: "right",
     });
 
-    y += 35;
+    y += 40;
 
-    // Total Tax Liability with highlight
+    // Total Tax Liability with highlight - ANNUAL
+    checkPageBreak(20);
     doc.setFillColor(0, 51, 102);
     doc.roundedRect(margin, y, pageWidth - 2 * margin, 15, 3, 3, "F");
 
     doc.setTextColor(255, 255, 255);
     doc.setFont("helvetica", "bold");
-    doc.text("ESTIMATED TAX LIABILITY:", margin + 10, y + 10);
+    doc.text("ESTIMATED ANNUAL TAX LIABILITY:", margin + 10, y + 10);
     doc.text(
       `NGN ${Number(result.tax).toLocaleString()}`,
+      pageWidth - margin - 10,
+      y + 10,
+      { align: "right" },
+    );
+
+    y += 20;
+
+    // MONTHLY TAX LIABILITY - Added new section
+    checkPageBreak(20);
+    doc.setFillColor(0, 135, 83); // Green for monthly
+    doc.roundedRect(margin, y, pageWidth - 2 * margin, 15, 3, 3, "F");
+
+    doc.setTextColor(255, 255, 255);
+    doc.setFont("helvetica", "bold");
+    doc.text("ESTIMATED TAX PER MONTH:", margin + 10, y + 10);
+    const monthlyTax = result.tax / 12;
+    doc.text(
+      `NGN ${monthlyTax.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`,
       pageWidth - margin - 10,
       y + 10,
       { align: "right" },
@@ -429,6 +459,7 @@ function TaxCalculator() {
     y += 25;
 
     // Calculation Methodology
+    checkPageBreak(30);
     doc.setFontSize(10);
     doc.setTextColor(0, 0, 0);
     doc.setFont("helvetica", "bold");
@@ -443,11 +474,12 @@ function TaxCalculator() {
     );
     methodologyText.forEach((line) => {
       doc.text(line, margin, y);
-      y += 6;
+      y += 8;
     });
     y += 8;
 
     // 2026 Reform Specific Provisions
+    checkPageBreak(50);
     doc.setFontSize(10);
     doc.setFont("helvetica", "bold");
     doc.setTextColor(0, 51, 102);
@@ -466,9 +498,9 @@ function TaxCalculator() {
         "✓ Minimum tax provisions may apply if taxable income is nil",
       ],
       corporate: [
-        "✓ Small companies (<₦25M turnover): 0% first NGN100M profit",
-        "✓ Medium companies: 20% tax rate",
-        "✓ Large companies: 25% tax rate",
+        "✓ Small companies (<₦100M turnover): 0% tax",
+        "✓ Medium companies (₦100M-₦1B turnover): 20% tax rate",
+        "✓ Large companies (>₦1B turnover): 25% tax rate",
         "✓ Losses can be carried forward for 4 years",
       ],
       vat: [
@@ -500,12 +532,14 @@ function TaxCalculator() {
 
     const provisions = reformProvisions[selectedTax.key] || [];
     provisions.forEach((provision) => {
+      checkPageBreak(5);
       doc.text(provision, margin + 5, y);
       y += 5;
     });
     y += 10;
 
     // Important Deadlines & Compliance
+    checkPageBreak(30);
     doc.setFontSize(10);
     doc.setFont("helvetica", "bold");
     doc.text("COMPLIANCE INFORMATION", margin, y);
@@ -518,43 +552,51 @@ function TaxCalculator() {
       personal_income: [
         "• Filing Deadline: 31st March following year end",
         "• Payment Deadline: 31st March following year end",
+        "• Monthly Installments: Recommended for large liabilities",
         "• Required Documents: Annual tax return with supporting schedules",
       ],
       corporate: [
         "• Filing Deadline: 6 months after year end",
         "• Payment Deadline: Monthly installments (PAYE)",
+        "• Monthly Payments: Required for companies >₦100M turnover",
         "• Required: Audited financial statements, tax computations",
       ],
       vat: [
         "• Filing Deadline: 21st of following month",
         "• Payment Deadline: 21st of following month",
+        "• Monthly Payments: Standard for all registered businesses",
         "• Required: VAT returns with sales and purchase records",
       ],
       capital_gains: [
         "• Filing Deadline: 30 days after disposal",
         "• Payment Deadline: 30 days after disposal",
+        "• Monthly Option: Available for large capital gains",
         "• Required: Asset disposal form (NRS Form CGT1)",
       ],
       digital_assets: [
         "• Filing Deadline: 30 days after each transaction",
         "• Payment Deadline: 30 days after transaction",
+        "• Monthly Option: Available for frequent traders",
         "• Required: Digital asset transaction log (NRS Form DAT1)",
       ],
       withholding: [
         "• Filing Deadline: 21st of following month",
         "• Payment Deadline: 21st of following month",
+        "• Monthly Payments: Standard for all businesses",
         "• Required: Monthly remittance schedule (NRS Form WHT6)",
       ],
     };
 
     const taxDeadlines = deadlines[selectedTax.key] || [];
     taxDeadlines.forEach((deadline) => {
+      checkPageBreak(5);
       doc.text(deadline, margin + 5, y);
       y += 5;
     });
     y += 10;
 
     // Official Disclaimer
+    checkPageBreak(40);
     doc.setDrawColor(255, 0, 0);
     doc.setLineWidth(0.3);
     doc.line(margin, y, pageWidth - margin, y);
@@ -575,6 +617,7 @@ function TaxCalculator() {
     const disclaimerText = [
       "This document is an estimate generated by CheckTax for informational purposes only. It does not constitute an official tax assessment, ruling, or advice from the Nigeria Revenue Service (NRS).",
       "Tax liabilities are subject to verification by NRS officials based on complete documentation and applicable laws. Rates and provisions are based on the Finance Act 2026 and NRS circulars as at date of generation.",
+      "Monthly tax payments are estimates only. Actual payment schedules may vary based on NRS assessment and taxpayer circumstances.",
       "Penalties for late filing: 10% of tax due + 10% interest per annum. Penalties for incorrect filing: 5-100% of tax underpaid.",
       "For official tax assessments, filings, and payments, visit the NRS portal at www.nrs.gov.ng or contact your regional tax office.",
       "This estimate is valid for 30 days from generation date. Tax laws and rates are subject to change by the National Assembly.",
@@ -583,39 +626,28 @@ function TaxCalculator() {
     disclaimerText.forEach((paragraph) => {
       const lines = doc.splitTextToSize(paragraph, pageWidth - 2 * margin);
       lines.forEach((line) => {
+        checkPageBreak(4);
         doc.text(line, margin, y);
         y += 4;
       });
       y += 2;
     });
 
-    // // Footer with NRS Reference
-    // doc.setFontSize(6);
-    // doc.setTextColor(100, 100, 100);
-    // doc.text(
-    //   "CheckTax v2.1 • NRS Compliant Calculator • Generated: " +
-    //     new Date().toLocaleString(),
-    //   pageWidth / 2,
-    //   285,
-    //   { align: "center" },
-    // );
-    // doc.text(
-    //   "© 2026 CheckTax. All rights reserved. This tool follows NRS Circular NT/2026/CALC/01",
-    //   pageWidth / 2,
-    //   288,
-    //   { align: "center" },
-    // );
-    // doc.text(
-    //   "Page 1 of 1 • Document ID: CT-" + Date.now(),
-    //   pageWidth / 2,
-    //   291,
-    //   { align: "center" },
-    // );
-
     // Add page border
     doc.setDrawColor(200, 200, 200);
     doc.setLineWidth(0.5);
-    doc.rect(10, 10, pageWidth - 20, 275);
+    doc.rect(10, 10, pageWidth - 20, pageHeight - 20);
+
+    // Add page numbers if multiple pages
+    const pageCount = doc.internal.getNumberOfPages();
+    for (let i = 1; i <= pageCount; i++) {
+      doc.setPage(i);
+      doc.setFontSize(7);
+      doc.setTextColor(150, 150, 150);
+      doc.text(`Page ${i} of ${pageCount}`, pageWidth / 2, pageHeight - 10, {
+        align: "center",
+      });
+    }
 
     doc.save(
       `NRS-Tax-Estimate-${selectedTax.key.toUpperCase()}-${Date.now()}.pdf`,
@@ -720,6 +752,14 @@ function TaxCalculator() {
                       <div className="text-sm md:text-base bg-gray-100 p-3 rounded-lg w-full sm:w-auto">
                         <strong>Estimated Tax:</strong> ₦
                         {result.tax.toLocaleString()}
+                        <span className="text-green-600 ml-2">
+                          (Monthly: ₦
+                          {(result.tax / 12).toLocaleString(undefined, {
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2,
+                          })}
+                          )
+                        </span>
                       </div>
                     )}
                   </div>
@@ -773,6 +813,12 @@ function TaxCalculator() {
                           <hr className="border-t border-gray-300" />
 
                           <p className="text-sm md:text-base">
+                            • Monthly tax payments are often required for large
+                            liabilities
+                          </p>
+                          <hr className="border-t border-gray-300" />
+
+                          <p className="text-sm md:text-base">
                             • Always refer to the Nigeria Revenue Service for
                             official filing
                           </p>
@@ -814,6 +860,12 @@ function TaxCalculator() {
                         <p className="text-sm">
                           • VAT is typically collected from customers, not
                           absorbed by sellers
+                        </p>
+                        <hr className="border-t border-gray-300" />
+
+                        <p className="text-sm">
+                          • Monthly tax payments are often required for large
+                          liabilities
                         </p>
                         <hr className="border-t border-gray-300" />
 
