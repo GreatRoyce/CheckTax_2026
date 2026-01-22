@@ -650,7 +650,7 @@ function TaxCalculator() {
     }
 
     doc.save(
-      `NRS-Tax-Estimate-${selectedTax.key.toUpperCase()}-${Date.now()}.pdf`,
+      `NRS-Tax-Estimate-by-CheckTax${selectedTax.key.toUpperCase()}-${Date.now()}.pdf`,
     );
   };
 
