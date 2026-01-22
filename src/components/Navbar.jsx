@@ -18,7 +18,7 @@ function Navbar() {
 
   return (
     <div className="relative">
-      <nav className="border flex px-4 sm:px-6 md:px-10 mb-10 justify-between items-center w-screen h-14 fixed z-50 shadow-md backdrop-blur-2xl bg-white/90">
+      <nav className="border flex px-3 sm:px-10 md:px-16 mb-10 justify-between items-center w-screen h-14 fixed z-50 shadow-md backdrop-blur-2xl bg-white/90 ">
         {/* Logo links to home */}
         <div
           id="#hero"
@@ -35,7 +35,7 @@ function Navbar() {
         </div>
 
         {/* Desktop Navigation Links - Hidden on mobile */}
-        <ul className="hidden md:flex gap-6 lg:gap-10 justify-between items-center text-md font-bold text-btnprimary">
+        <ul className="hidden  md:flex gap-6 lg:gap-10 justify-between items-center text-md font-bold text-btnprimary">
           <li>
             <Link
               to="/home#"
@@ -140,7 +140,6 @@ function Navbar() {
                   FAQs
                 </Link>
               </li>
-          
             </ul>
 
             {/* Mobile Buttons */}

@@ -95,10 +95,10 @@ function FAQs() {
       {/* Header */}
       <div className="bg-white shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <h1 className="text-3xl font-bold mb-2" style={{ color: "#008753" }}>
+          <h2 className="text-2xl font-bold mb-2 text-black/85">
             Frequently Asked Questions (FAQs)
-          </h1>
-          <p className="text-lg italic" style={{ color: "#006641" }}>
+          </h2>
+          <p className="text-sm italic" style={{ color: "#006641" }}>
             CheckTax — 2026 Nigerian Tax Reform Guide
           </p>
           <div className="mt-6 flex flex-wrap gap-4">
@@ -107,7 +107,7 @@ function FAQs() {
               href="https://www.nrs.gov.ng/"
               target="_blank"
               rel="noopener noreferrer"
-              className="px-6 py-3 rounded-lg font-medium flex items-center gap-2 border"
+              className="px-6 py-3 rounded-lg text-sm font-medium flex items-center gap-2 border"
               style={{ borderColor: "#008753", color: "#008753" }}
             >
               <ExternalLink size={18} />
@@ -320,16 +320,7 @@ function FAQs() {
           </div>
         </div>
 
-        {/* Footer Note */}
-        <div className="mt-12 pt-8 border-t text-center">
-          <p className="text-gray-600">
-            Information last updated: January 2026 • Version 1.0
-          </p>
-          <p className="text-sm text-gray-500 mt-2">
-            CheckTax is a citizen-first initiative to improve tax literacy in
-            Nigeria.
-          </p>
-        </div>
+  
       </div>
     </div>
   );

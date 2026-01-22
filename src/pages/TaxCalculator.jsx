@@ -79,56 +79,114 @@ const calculateTax = (taxKey, data) => {
       const pension = data.pension || 0;
       const nhf = data.nhf || 0;
 
+      // exemption threshold
+      if (income <= 800000) {
+        return {
+          taxableIncome: 0,
+          tax: 0,
+          explanation:
+            "Under the 2026 Tax Reform Act, individuals earning ₦800,000 or less per annum are fully exempt.",
+        };
+      }
+
+      // Consolidated Relief Allowance
       const relief = income * 0.2 + 200000;
       const taxableIncome = Math.max(income - relief - pension - nhf, 0);
 
-      const tax = taxableIncome * 0.15; // flat reform-style rate
+      // Progressive bands
+      let tax = 0;
+      let remaining = taxableIncome;
+
+      const bands = [
+        { limit: 300000, rate: 0.07 },
+        { limit: 300000, rate: 0.11 },
+        { limit: 500000, rate: 0.15 },
+        { limit: 500000, rate: 0.19 },
+        { limit: 1600000, rate: 0.21 },
+        { limit: Infinity, rate: 0.24 },
+      ];
+
+      for (const band of bands) {
+        if (remaining <= 0) break;
+        const taxableAtThisRate = Math.min(remaining, band.limit);
+        tax += taxableAtThisRate * band.rate;
+        remaining -= taxableAtThisRate;
+      }
+
       return {
         taxableIncome,
         tax,
         explanation:
-          "Personal income tax is calculated after applying statutory reliefs and approved deductions.",
+          "Personal Income Tax is calculated after applying the ₦800,000 exemption, consolidated relief allowance, approved deductions, and progressive tax bands as prescribed under the 2026 reforms.",
       };
     }
 
     case "corporate": {
-      const tax = (data.profit || 0) * 0.25;
+      const profit = data.profit || 0;
+      const turnover = data.turnover || 0;
+
+      // Small business exemption
+      if (turnover < 100000000) {
+        return {
+          taxableIncome: 0,
+          tax: 0,
+          explanation:
+            "Companies with annual turnover below ₦100 million are exempt from Corporate Income Tax.",
+        };
+      }
+
+      const tax = profit * 0.15; // minimum effective rate
       return {
-        taxableIncome: data.profit,
+        taxableIncome: profit,
         tax,
         explanation:
-          "Corporate tax is applied to net annual profit at the reform rate.",
+          "Large companies are subject to a minimum effective Corporate Income Tax rate of 15%.",
       };
     }
 
     case "vat": {
-      const tax = (data.sales || 0) * 0.075;
+      const sales = data.sales || 0;
+      const tax = sales * 0.075;
+
       return {
-        taxableIncome: data.sales,
+        taxableIncome: sales,
         tax,
         explanation:
-          "VAT is charged on taxable sales and is typically collected from consumers.",
+          "VAT is charged at 7.5% on taxable goods and services and is typically collected from consumers.",
       };
     }
 
     case "capital_gains":
     case "digital_assets": {
-      const tax = (data.gain || 0) * 0.1;
+      const gain = data.gain || 0;
+
+      if (gain <= 0) {
+        return {
+          taxableIncome: 0,
+          tax: 0,
+          explanation:
+            "Capital Gains Tax applies only to realized profits. No tax is due where no gain is made.",
+        };
+      }
+
+      const tax = gain * 0.1;
       return {
-        taxableIncome: data.gain,
+        taxableIncome: gain,
         tax,
         explanation:
-          "Capital gains tax applies to profits made from asset disposals.",
+          "Capital gains, including gains from digital assets, are taxed at 10% on realized profits.",
       };
     }
 
     case "withholding": {
-      const tax = (data.payment || 0) * 0.05;
+      const payment = data.payment || 0;
+      const tax = payment * 0.05;
+
       return {
-        taxableIncome: data.payment,
+        taxableIncome: payment,
         tax,
         explanation:
-          "Withholding tax is deducted at source and credited against final tax liability.",
+          "Withholding Tax is deducted at source as an advance payment and can be credited against final tax liability.",
       };
     }
 
@@ -239,7 +297,7 @@ function TaxCalculator() {
     doc.text(`Category: ${selectedTax.title}`, margin + 5, y);
     y += 6;
 
-    // Add official tax type code if available
+    // Added official tax type code
     const taxCodes = {
       personal_income: "PIT-01",
       corporate: "CIT-01",
@@ -277,13 +335,13 @@ function TaxCalculator() {
 
     // Input Information Section
     doc.setFontSize(12);
-    doc.setFont(undefined, "bold");
+    doc.setFont("helvetica", "bold");
     doc.setTextColor(0, 51, 102);
     doc.text("INPUT INFORMATION PROVIDED", margin, y);
     y += 8;
 
     doc.setFontSize(10);
-    doc.setFont(undefined, "normal");
+    doc.setFont("helvetica", "normal");
     doc.setTextColor(0, 0, 0);
 
     // Format input labels properly
@@ -371,13 +429,13 @@ function TaxCalculator() {
     y += 25;
 
     // Calculation Methodology
-    doc.setFontSize(11);
+    doc.setFontSize(10);
     doc.setTextColor(0, 0, 0);
-    doc.setFont(undefined, "bold");
+    doc.setFont("helvetica", "bold");
     doc.text("CALCULATION METHODOLOGY", margin, y);
     y += 8;
 
-    doc.setFontSize(10);
+    doc.setFontSize(8);
     doc.setFont("helvetica", "normal");
     const methodologyText = doc.splitTextToSize(
       result.explanation,
@@ -390,13 +448,13 @@ function TaxCalculator() {
     y += 8;
 
     // 2026 Reform Specific Provisions
-    doc.setFontSize(11);
+    doc.setFontSize(10);
     doc.setFont("helvetica", "bold");
     doc.setTextColor(0, 51, 102);
     doc.text("2026 TAX REFORM PROVISIONS APPLIED", margin, y);
     y += 8;
 
-    doc.setFontSize(9);
+    doc.setFontSize(8);
     doc.setFont("helvetica", "normal");
     doc.setTextColor(60, 60, 60);
 
@@ -448,12 +506,12 @@ function TaxCalculator() {
     y += 10;
 
     // Important Deadlines & Compliance
-    doc.setFontSize(11);
+    doc.setFontSize(10);
     doc.setFont("helvetica", "bold");
     doc.text("COMPLIANCE INFORMATION", margin, y);
     y += 8;
 
-    doc.setFontSize(9);
+    doc.setFontSize(8);
     doc.setFont("helvetica", "normal");
 
     const deadlines = {
@@ -531,28 +589,28 @@ function TaxCalculator() {
       y += 2;
     });
 
-    // Footer with NRS Reference
-    doc.setFontSize(6);
-    doc.setTextColor(100, 100, 100);
-    doc.text(
-      "CheckTax v2.1 • NRS Compliant Calculator • Generated: " +
-        new Date().toLocaleString(),
-      pageWidth / 2,
-      285,
-      { align: "center" },
-    );
-    doc.text(
-      "© 2026 CheckTax. All rights reserved. This tool follows NRS Circular NT/2026/CALC/01",
-      pageWidth / 2,
-      288,
-      { align: "center" },
-    );
-    doc.text(
-      "Page 1 of 1 • Document ID: CT-" + Date.now(),
-      pageWidth / 2,
-      291,
-      { align: "center" },
-    );
+    // // Footer with NRS Reference
+    // doc.setFontSize(6);
+    // doc.setTextColor(100, 100, 100);
+    // doc.text(
+    //   "CheckTax v2.1 • NRS Compliant Calculator • Generated: " +
+    //     new Date().toLocaleString(),
+    //   pageWidth / 2,
+    //   285,
+    //   { align: "center" },
+    // );
+    // doc.text(
+    //   "© 2026 CheckTax. All rights reserved. This tool follows NRS Circular NT/2026/CALC/01",
+    //   pageWidth / 2,
+    //   288,
+    //   { align: "center" },
+    // );
+    // doc.text(
+    //   "Page 1 of 1 • Document ID: CT-" + Date.now(),
+    //   pageWidth / 2,
+    //   291,
+    //   { align: "center" },
+    // );
 
     // Add page border
     doc.setDrawColor(200, 200, 200);
@@ -563,6 +621,7 @@ function TaxCalculator() {
       `NRS-Tax-Estimate-${selectedTax.key.toUpperCase()}-${Date.now()}.pdf`,
     );
   };
+
   const resetView = () => {
     setSelectedTax(null);
     setFormData({});
@@ -573,7 +632,7 @@ function TaxCalculator() {
     <div>
       <div className="bg-secondary pt-20 py-8 sm:py-12 md:py-20 lg:py-28">
         <header className="mx-auto text-center space-y-2 pt-2 px-4">
-          <h2 className="text-black/85 text-2xl sm:text-3xl md:text-4xl">
+          <h2 className="text-black/85 text-2xl sm:text-2xl md:text-3xl">
             Tax Calculator
           </h2>
           <h6 className="text-sm sm:text-base md:text-lg">

@@ -301,7 +301,7 @@ function TaxGuide() {
                   <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
                     <FaUsers className="text-primary" />
                   </div>
-                  <h3 className="font-bold text-gray-900">Who It Affects</h3>
+                  <h5 className="font-bold text-gray-9006/85">Who It Affects</h5>
                 </div>
 
                 <div className="space-y-3">
@@ -357,9 +357,9 @@ function TaxGuide() {
                   <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
                     <FaExclamationTriangle className="text-primary" />
                   </div>
-                  <h3 className="font-bold text-gray-900">
+                  <h5 className="font-bold text-gray-900">
                     Official Reference
-                  </h3>
+                  </h5>
                 </div>
 
                 <div className="space-y-4">
@@ -400,12 +400,12 @@ function TaxGuide() {
                 <h4 className="font-bold text-gray-900 text-sm mb-2">
                   Important Note
                 </h4>
-                <h4 className=" text-gray-600 leading-relaxed">
+                <p className="text-sm text-gray-600 leading-relaxed">
                   This guide provides general information about the 2026 tax
                   reforms. It is not legal or professional tax advice. For
                   specific tax situations, consult a qualified tax professional
                   or the Nigeria Revenue Service.
-                </h4>
+                </p>
               </div>
             </div>
           </div>

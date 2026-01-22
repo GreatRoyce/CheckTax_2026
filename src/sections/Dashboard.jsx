@@ -51,13 +51,13 @@ function resolveTax(income, table) {
   return table.at(-1).monthly;
 }
 
-/* ---------------- GRAPH COMPONENT ---------------- */
+/* ---------------- GRAPH ---------------- */
+
 const TaxGraph = ({ income, oldTax, newTax }) => {
-  // Generate sample data points for the graph
   const dataPoints = useMemo(() => {
     const points = [];
-    const step = 1000000; // 1 million intervals
-    const maxIncome = 12000000;
+    const step = 1_000_000;
+    const maxIncome = 12_000_000;
 
     for (let i = 0; i <= maxIncome; i += step) {
       points.push({
@@ -72,28 +72,25 @@ const TaxGraph = ({ income, oldTax, newTax }) => {
   const maxTax = Math.max(
     ...dataPoints.map((d) => Math.max(d.oldTax, d.newTax)),
   );
-  const maxIncome = 12000000;
 
-  // Scale functions for SVG
-  const scaleX = (value) => (value / maxIncome) * 100;
-  const scaleY = (value) => 100 - (value / maxTax) * 100;
+  const scaleX = (v) => (v / 12_000_000) * 100;
+  const scaleY = (v) => 100 - (v / maxTax) * 100;
 
   return (
-    <div className="p-2 sm:p-4 h-full border-3">
-      <h4 className="text-base sm:text-lg font-semibold mb-2 sm:mb-4 text-gray-700">
+    <div className="p-3 h-full">
+      {/* <h4 className="text-sm sm:text-lg font-semibold mb-2 text-gray-700">
         Tax Comparison Over Income Range
-      </h4>
-      <div className="relative h-48 sm:h-56 md:h-64 w-full">
-        {/* SVG Graph */}
+      </h4> */}
+
+      <div className="relative h-full w-full">
         <svg
           className="w-full h-full"
           viewBox="0 0 100 100"
           preserveAspectRatio="none"
         >
-          {/* Grid lines */}
           {[0, 20, 40, 60, 80, 100].map((y) => (
             <line
-              key={`grid-y-${y}`}
+              key={y}
               x1="0"
               y1={y}
               x2="100"
@@ -106,7 +103,7 @@ const TaxGraph = ({ income, oldTax, newTax }) => {
 
           {[0, 25, 50, 75, 100].map((x) => (
             <line
-              key={`grid-x-${x}`}
+              key={x}
               x1={x}
               y1="0"
               x2={x}
@@ -117,7 +114,6 @@ const TaxGraph = ({ income, oldTax, newTax }) => {
             />
           ))}
 
-          {/* Old Tax Line */}
           <polyline
             fill="none"
             stroke="#ef4444"
@@ -127,7 +123,6 @@ const TaxGraph = ({ income, oldTax, newTax }) => {
               .join(" ")}
           />
 
-          {/* New Tax Line */}
           <polyline
             fill="none"
             stroke="#10b981"
@@ -137,75 +132,47 @@ const TaxGraph = ({ income, oldTax, newTax }) => {
               .join(" ")}
           />
 
-          {/* Current income indicator */}
           <line
             x1={scaleX(income)}
             y1="0"
             x2={scaleX(income)}
             y2="100"
             stroke="#3b82f6"
-            strokeWidth="1"
             strokeDasharray="3,3"
           />
 
-          {/* Current income point for old tax */}
           <circle
             cx={scaleX(income)}
             cy={scaleY(oldTax)}
             r="2"
             fill="#ef4444"
-            stroke="white"
-            strokeWidth="1"
           />
-
-          {/* Current income point for new tax */}
           <circle
             cx={scaleX(income)}
             cy={scaleY(newTax)}
             r="2"
             fill="#10b981"
-            stroke="white"
-            strokeWidth="1"
           />
         </svg>
 
-        {/* Legend */}
-        <div className="absolute bottom-1 sm:bottom-2 right-0 sm:left-2 flex flex-col gap-1 text-xs">
-          <div className="flex items-center gap-1 sm:gap-2">
-            <div className="w-2 sm:w-3 h-0.5 bg-red-500"></div>
-            <span className="text-gray-600 text-xs">2025 Tax</span>
-          </div>
-          <div className="flex items-center gap-1 sm:gap-2">
-            <div className="w-2 sm:w-3 h-0.5 bg-green-500"></div>
-            <span className="text-gray-600 text-xs">2026 Tax</span>
-          </div>
-          <div className="flex items-center gap-1 sm:gap-2">
-            <div
-              className="w-2 sm:w-3 h-0.5 bg-blue-500"
-              style={{ strokeDasharray: "3,3" }}
-            ></div>
-            <span className="text-gray-600 text-xs">Current Income</span>
-          </div>
+        <div className="absolute bottom-2 left-2 text-xs space-y-1">
+          <Legend color="bg-red-500" label="2025 Tax" />
+          <Legend color="bg-green-500" label="2026 Tax" />
+          <Legend color="bg-blue-500" label="Current Income" />
         </div>
-
-        {/* Axis labels */}
-        <div className="absolute bottom-0 left-0 sm:left-1/2 sm:transform-translate-x-1/2 text-xs text-gray-500 whitespace-nowrap">
-          Annual Income (₦ millions)
-        </div>
-        <div className="absolute left-0 top-1/2 transform -translate-y-1/2 -rotate-90 text-xs text-gray-500 whitespace-nowrap origin-left">
-          Monthly Tax (₦)
-        </div>
-      </div>
-
-      {/* Income markers */}
-      <div className="flex justify-between text-xs text-gray-500 mt-2">
-        <span>₦0</span>
-        <span>₦6M</span>
-        <span>₦12M</span>
       </div>
     </div>
   );
 };
+
+const Legend = ({ color, label }) => (
+  <div className="flex items-center gap-2">
+    <div className={`w-3 h-0.5 ${color}`} />
+    <span className="text-gray-600">{label}</span>
+  </div>
+);
+
+/* ---------------- DASHBOARD ---------------- */
 
 function Dashboard() {
   const [income, setIncome] = useState(800000);
@@ -217,64 +184,48 @@ function Dashboard() {
     setNewTax(resolveTax(income, NEW_TAX));
   }, [income]);
 
-  const reset = () => {
-    setIncome(800000);
-  };
-
   const difference = newTax - oldTax;
 
   return (
-    <div className="w-full lg:w-4/5 p-3 sm:p-4 mb-8 sm:mb-32 text-center h-auto min-h-screen mx-auto">
-      <header className="py-4 pt-10 sm:pt-16 sm:mt-10">
-        <h2 className="text-xl sm:text-2xl md:text-3xl">Dashboard</h2>
-        <h4 className="text-sm sm:text-base md:text-lg">Your Tax Overview</h4>
+    <div className="w-full lg:w-4/5 sm:mt-0 lg:mt-0 md:mt-96  p-4  mx-auto text-center">
+      <header className="py-6">
+        <h2 className="text-2xl sm:text-3xl">Dashboard</h2>
+        <h4 className="text-sm sm:text-lg text-gray-600">Your Tax Overview</h4>
       </header>
 
-      <main className="shadow-lg h-auto min-h-[84vh] sm:h-[100vh] rounded-lg border">
-        {/* NAV */}
-        <nav className="h-10 sm:h-12 px-3 sm:px-4 flex justify-between items-center border-b-2 border-footercolor">
-          <div className="flex items-center gap-1 sm:gap-2">
-            <GoGraph className="h-4 w-4 sm:h-6 sm:w-6" />
-            <h4 className="text-sm sm:text-xl">Tax Impact Forecast</h4>
+      <main className="shadow-lg rounded-lg border flex flex-col">
+        <nav className="h-12 px-4 flex justify-between items-center border-b">
+          <div className="flex items-center gap-2">
+            <GoGraph className="h-5 w-5" />
+            <h4 className="text-sm sm:text-lg">Tax Impact Forecast</h4>
           </div>
 
-          <button onClick={reset} title="Reset" className="p-1 sm:p-0">
-            <MdRefresh className="h-6 w-6 sm:h-10 sm:w-10 opacity-60 hover:opacity-100 active:rotate-180 transition-all duration-300" />
+          <button onClick={() => setIncome(800000)}>
+            <MdRefresh className="h-7 w-7 opacity-60 hover:opacity-100 transition" />
           </button>
         </nav>
 
-        {/* BODY */}
-        <section className="pt-2 sm:pt-4 pb-2 sm:pb-4 h-auto min-h-[80vh] sm:h-[85vh]">
-          {/* SLIDER */}
-          <div className="px-3 sm:px-5 mb-4 sm:mb-8 h-auto">
-            <label className="font-semibold text-base sm:text-xl text-left text-black/80 block mb-3 sm:mb-6">
-              Annual Income: ₦{income.toLocaleString()}
-            </label>
+        <section className="p-4 flex-1">
+          <label className="block font-semibold mb-3">
+            Annual Income: ₦{income.toLocaleString()}
+          </label>
 
-            <input
-              type="range"
-              min={0}
-              max={12000000}
-              step={100000}
-              value={income}
-              onChange={(e) => setIncome(Number(e.target.value))}
-              className="w-full accent-primary h-2"
-            />
-            <div className="flex justify-between text-xs sm:text-sm text-gray-500 mt-2">
-              <span>₦0</span>
-              <span className="truncate max-w-[120px] sm:max-w-none">
-                ₦{income.toLocaleString()}
-              </span>
-              <span>₦12M</span>
-            </div>
-          </div>
+          <input
+            type="range"
+            min={0}
+            max={12_000_000}
+            step={100_000}
+            value={income}
+            onChange={(e) => setIncome(+e.target.value)}
+            className="w-full accent-primary"
+          />
 
-          {/* RESULTS */}
-          <div className="h-auto grid grid-cols-1 lg:grid-cols-[3fr_1fr] gap-3 sm:gap-6 p-2 sm:p-4">
-            <div className="bg-btnprimary/10 rounded-lg h-64 sm:h-72 md:h-80 lg:h-85">
+          <div className="grid grid-cols-1 lg:grid-cols-[3fr_1fr] gap-6 mt-6">
+            <div className="bg-btnprimary/10 rounded-lg h-[260px] sm:h-[300px] md:h-[340px] lg:h-[380px]">
               <TaxGraph income={income} oldTax={oldTax} newTax={newTax} />
             </div>
-            <div className="bg-btnprimary/10 rounded-lg p-3 sm:p-4 space-y-3 sm:space-y-4">
+
+            <div className="bg-btnprimary/10 rounded-lg p-4 space-y-4">
               <Stat label="2026 Tax (Monthly)" value={newTax} />
               <Stat label="2025 Tax (Monthly)" value={oldTax} />
               <Stat
@@ -282,16 +233,6 @@ function Dashboard() {
                 value={difference}
                 highlight={difference < 0 ? "green" : "red"}
               />
-              <div className="pt-2 sm:pt-4 text-xs sm:text-sm text-gray-600">
-                <p className="font-semibold">Key Insight:</p>
-                <p className="mt-1">
-                  {difference < 0
-                    ? "✓ You'll pay less tax in 2026!"
-                    : difference > 0
-                      ? "⚠ You'll pay more tax in 2026"
-                      : "Tax remains the same"}
-                </p>
-              </div>
             </div>
           </div>
         </section>
@@ -300,19 +241,19 @@ function Dashboard() {
   );
 }
 
-/* ---------------- SMALL STAT COMPONENT ---------------- */
+/* ---------------- STAT ---------------- */
 
 function Stat({ label, value, highlight }) {
   return (
-    <div className="border-b border-gray-400 pb-1 sm:pb-2">
-      <h4 className="font-semibold text-sm sm:text-base">{label}</h4>
+    <div className="border-b-4 border-black/30 pb-2">
+      <h4 className="text-sm font-semibold">{label}</h4>
       <p
-        className={`text-base sm:text-lg font-bold ${
+        className={`text-lg font-bold ${
           highlight === "green"
             ? "text-green-600"
             : highlight === "red"
               ? "text-red-600"
-              : "text-black/80"
+              : "text-gray-800"
         }`}
       >
         ₦{value.toLocaleString()}

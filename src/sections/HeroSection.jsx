@@ -6,7 +6,6 @@ import { HeroData } from "../Data/HeroData";
 import BarChart from "../components/BarChart";
 import { HashLink as Hashlink } from "react-router-hash-link";
 
-
 function HeroSection() {
   const [heroData] = useState({
     labels: HeroData.map((data) => data.year),
@@ -74,7 +73,7 @@ function HeroSection() {
   const [activebtn, setActivebtn] = useState("check");
 
   return (
-    <div className="w-full min-h-screen md:h-[84vh] pt-12 md:pt-20 bg-primary/5">
+    <div className="w-full min-h-screen md:h-[84vh] pt-20 md:pt-20 bg-primary/5">
       <div className="w-full md:w-4/5 h-full mx-auto px-4 md:px-0 flex flex-col lg:flex-row">
         {/* LEFT SECTION */}
         <div className="w-full lg:w-3/5 h-full order-1">
@@ -91,7 +90,7 @@ function HeroSection() {
               </h4>
             </div>
 
-            <div className="grid grid-rows-[auto_auto] mt-6 md:mt-0">
+            <div className="grid grid-rows-[auto_auto] mt-4 md:mt-0">
               <div className="flex flex-col sm:flex-row justify-center items-center pb-6 gap-4 sm:gap-6">
                 <button
                   className={`w-full sm:w-auto px-4 py-3 sm:py-2 rounded-md font-bold transition-colors duration-300 ease-in-out border-2 ${
@@ -108,7 +107,9 @@ function HeroSection() {
                     Calculate Tax <FaArrowRight className="h-5 w-5" />
                   </Hashlink>
                 </button>
-                <Hashlink smooth to="/tax-guide"
+                <Hashlink
+                  smooth
+                  to="/tax-guide"
                   className={`w-full  sm:w-auto px-4 py-3 sm:py-2 rounded-md font-bold transition-colors duration-300 ease-in-out border-2 ${
                     activebtn === "submit"
                       ? "bg-primary text-secondary hover:bg-primary/90 active:text-primary active:bg-secondary border-primary"
@@ -153,7 +154,7 @@ function HeroSection() {
         </div>
 
         {/* GRAPH AREA */}
-        <div className="w-full lg:w-[38%] h-[300px] sm:h-[350px] md:h-[400px] lg:h-[450px] bg-secondary shadow-lg order-2 lg:order-2 mt-6 lg:mt-0">
+        <div className="w-full lg:w-[38%] h-[300px] sm:h-[350px] md:h-[400px] lg:h-[450px] bg-secondary shadow-lg order-2 lg:order-2 mt-16 lg:mt-20">
           <div className="w-full h-full p-4 sm:p-6">
             <BarChart
               style={{ width: "100%", height: "100%" }}
