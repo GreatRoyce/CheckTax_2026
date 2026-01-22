@@ -112,6 +112,7 @@ function Navbar() {
                 >
                   Home
                 </Link>
+                <hr />
               </li>
               <li>
                 <Link
@@ -121,6 +122,7 @@ function Navbar() {
                 >
                   Tax Reform Guide
                 </Link>
+                <hr />
               </li>
               <li>
                 <Link
@@ -130,6 +132,7 @@ function Navbar() {
                 >
                   Tax Calculator
                 </Link>
+                <hr />
               </li>
               <li>
                 <Link
