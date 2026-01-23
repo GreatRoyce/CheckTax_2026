@@ -5,9 +5,21 @@ const SYSTEM_RESPONSES = {
   greeting:
     "Hello. I can help explain Nigeria’s 2026 tax reforms in plain language. What would you like to know?",
 
-  fallback:
-    "This specific issue is handled directly by the Nigeria Revenue Service. For the most accurate and up-to-date guidance, please visit the official NRS website.",
-
+  fallback: (
+    <span>
+      This specific issue is handled directly by the Nigeria Revenue Service.
+      For the most accurate and up-to-date guidance, please visit the 
+      <a
+        href="https://www.nrs.gov.ng"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-blue-500 hover:text-primary/85 pl-1"
+      >
+        official NRS website
+      </a>
+      .
+    </span>
+  ),
   taxFree:
     "Under the 2026 tax reforms, income up to ₦800,000 per year is tax-free. If your total income is below this threshold, personal income tax does not apply.",
 

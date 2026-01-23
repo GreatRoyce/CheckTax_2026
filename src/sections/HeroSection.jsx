@@ -11,8 +11,8 @@ function HeroSection() {
     labels: HeroData.map((data) => data.year),
     datasets: [
       {
-        label: "Tax Revenue Projection(2025 vs 2026",
-        data: HeroData.map((data) => data.value),
+        label: "Tax Revenue Projection(2025 vs 2026)",
+        data: HeroData.map((data) => `${data.value}`),
         borderWidth: 1,
         barThickness: 50,
         maxBarThickness: 80,
@@ -35,40 +35,51 @@ function HeroSection() {
     ],
   });
 
-  const chartOptions = {
-    responsive: true,
-    maintainAspectRatio: false,
+const chartOptions = {
+  responsive: true,
+  maintainAspectRatio: false,
 
-    plugins: {
-      legend: {
-        position: "bottom",
-        labels: {
-          padding: 10,
+  plugins: {
+    legend: {
+      position: "bottom",
+      labels: {
+        padding: 10,
+      },
+    },
+    tooltip: {
+      callbacks: {
+        label: function (context) {
+          return context.raw + "%"; // add % in tooltip
         },
       },
     },
+  },
 
-    scales: {
-      y: {
-        title: {
-          display: true,
-          text: "Revenue (%)",
-          padding: 10,
-        },
-        beginAtZero: true,
-        min: 0,
-        max: 12.0, // REAL vertical space
-        ticks: {
-          stepSize: 2, // more space between grid lines
-          padding: 10,
-        },
+  scales: {
+    y: {
+      title: {
+        display: true,
+        text: "Revenue (%)",
+        padding: 10,
       },
-      x: {
-        barPercentage: 0.6,
-        categoryPercentage: 0.7,
+      beginAtZero: true,
+      min: 0,
+      max: 12.0, // REAL vertical space
+      ticks: {
+        stepSize: 2, // more space between grid lines
+        padding: 10,
+        callback: function (value) {
+          return value + "%"; // add % in axis labels
+        },
       },
     },
-  };
+    x: {
+      barPercentage: 0.6,
+      categoryPercentage: 0.7,
+    },
+  },
+};
+
 
   const [activebtn, setActivebtn] = useState("check");
 
